@@ -27,6 +27,12 @@ export function searchPokemonById(id: number){
   })
 };
 
-export function searchPockemonGroup(name: string){
-
+export function searchPokemonList(){
+  PokemonApi.listPokemons()
+  .then((data) => {
+    return data;
+  })
+  .catch((error) => {
+    throw new Error(error);
+  })
 }
