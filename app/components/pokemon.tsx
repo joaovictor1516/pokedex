@@ -1,6 +1,6 @@
 "use client";
 import 'tailwindcss/tailwind.css'
-interface PokemonName{
+interface Pokemon{
     name: string;
     ability: {
         name: string,
@@ -8,7 +8,7 @@ interface PokemonName{
     };
 }
 
-export default function Principal(props: Readonly<PokemonName>){
+export default function Principal(props: Readonly<Pokemon>){
     return(
         <div className="flex  border-solid border-red-600 border-2 text-center">
             <span>{props.name}</span>
