@@ -2,10 +2,7 @@
 import 'tailwindcss/tailwind.css'
 interface Pokemon{
     name: string;
-    ability: {
-        name: string,
-        url: string
-    };
+    ability: string;
 }
 
 export default function Principal(props: Readonly<Pokemon>){
