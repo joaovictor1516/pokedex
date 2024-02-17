@@ -5,9 +5,21 @@ import 'tailwindcss/tailwind.css';
 import Principal from './components/pokemon';
 import Header from './components/header';
 
+interface PokemonElements{
+  name: string;
+  abilities: [];
+}
+
+interface PokemonDatas{
+  name: string;
+  url: string;
+}
+
 export default function Home(){
-  const [pokemons, setPokemons] = useState("");
-  const [data, setData] = useState([]);
+  const [datas, setDatas] = useState<PokemonDatas[]>([]);
+
+  const [textSearch, setTextSearch] = useState("");
+  const [pokemons, setPokemons] = useState<PokemonElements[]>([]);
 
   useEffect(() => {
     takeData();
@@ -17,17 +29,41 @@ export default function Home(){
     try{
       const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
       const results = response.data.results;
-      setData(results);
-      setPokemons(results.name);
+      setDatas(results);
     } catch(error){
       console.error(`Error: ${error}`);
     }
   }
 
-function handleTextSearch(content: string){
-  const text = content;
-  setPokemons(text);
-}
+  const takeDataValues = async (list: any) => {
+    const takeElements: any[] = []; 
+    try{
+        for (let i in list){
+          const response = await axios.get(list[i].url);
+          const name = list[i].name;
+          const abilities = response.data.abilities;
+          takeElements.push({name: name, 
+                             abilities: abilities});
+        }
+      } catch(error){
+        console.error(error);
+      }
+      setPokemons(() => [...takeElements]);
+      console.log(takeElements);
+  }
+
+  useEffect(() => {
+    takeDataValues(datas);
+  }, [datas]);
+
+  useEffect(() => {
+    console.log(pokemons);
+  }, [pokemons]);
+
+    function handleTextSearch(content: string){
+      const text = content;
+      setTextSearch(text);
+    }
   
   return (
     <>
@@ -36,10 +72,10 @@ function handleTextSearch(content: string){
     </header>
 
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
-      {data.map((pokemon, index) => (
-        <Principal key={index} name={pokemon.name}/>
+      {pokemons.map((pokemon, index) => (
+        <Principal key={index} name={pokemon.name} ability={pokemon.abilities.abilities}/>
       ))}
-      <Principal name={pokemons}/>
+      <Principal name={textSearch} ability='teste'/>
     </div>
     </>
   )
