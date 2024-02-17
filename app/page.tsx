@@ -49,16 +49,11 @@ export default function Home(){
         console.error(error);
       }
       setPokemons(() => [...takeElements]);
-      console.log(takeElements);
   }
 
   useEffect(() => {
     takeDataValues(datas);
   }, [datas]);
-
-  useEffect(() => {
-    console.log(pokemons);
-  }, [pokemons]);
 
     function handleTextSearch(content: string){
       const text = content;
