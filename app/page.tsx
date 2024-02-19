@@ -3,16 +3,18 @@ import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import Principal from './components/pokemon';
 import Header from './components/header';
+import { Ability } from './interfaces/interfacesAPI';
 import { searchPokemonByName, searchPokemonList } from '@/api/pokemonAPI';
-
-interface PokemonElements{
-  name: string;
-  abilities: [];
-}
+import axios from 'axios';
 
 interface PokemonDatas{
   name: string;
   url: string;
+}
+
+interface PokemonElements{
+  name: string;
+  abilities: Ability[];
 }
 
 export default function Home(){
@@ -21,33 +23,59 @@ export default function Home(){
   const [textSearch, setTextSearch] = useState("");
   const [pokemons, setPokemons] = useState<PokemonElements[]>([]);
 
-  const takeData = async () => {
+  function handleTextSearch(content: string){
+    setTextSearch(content);
+  }
+
+  // const takeData = async () => {
+  //   try{
+  //     const results = await searchPokemonList();
+  //     setDatas(results);
+  //   } catch(error){
+  //     console.error(`Error: ${error}`);
+  //   }
+  // }
+
+  // const takeDataValues = async (list: PokemonDatas[]) => {
+  //   const takeElements: PokemonElements[] = []; 
+  //   try{
+  //       for (let i of list){
+  //         const response = await searchPokemonByName(i.name);
+  //         const name = i.name;
+  //         const abilities = response.abilities;
+  //         takeElements.push({name: name, 
+  //                            abilities: abilities});
+  //       }
+  //     } catch(error){
+  //       console.error(error);
+  //     }
+  //     setPokemons(() => [...takeElements]);
+  // }
+
+
+    const takeData = async () => {
     try{
-      const results = await searchPokemonList();
+      const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
+      const results = await response.data.results;
       setDatas(results);
+      console.log(results)
     } catch(error){
       console.error(`Error: ${error}`);
     }
   }
 
-  useEffect(() => {
-    takeData();
-  }, [takeData]);
-
-  useEffect(() => {
-    console.log(datas)
-  }, [datas]);
-
   const takeDataValues = async (list: PokemonDatas[]) => {
     const takeElements: PokemonElements[] = []; 
     try{
-        for (let i in list){
-          const response = await searchPokemonByName(list[i].name);
-          const name = list[i].name;
-          const abilities = response.abilities;
+        for (let i of list){
+          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i.name}`);
+          const name = i.name;
+          const abilities = response.data.abilities;
           takeElements.push({name: name, 
                              abilities: abilities});
         }
+
+        console.log(takeElements);
       } catch(error){
         console.error(error);
       }
@@ -55,17 +83,12 @@ export default function Home(){
   }
 
   useEffect(() => {
-    takeDataValues(datas);
-  }, [datas]);
+    takeData();
+  }, []);
 
   useEffect(() => {
-    console.log(pokemons)
-  }, [pokemons]);
-
-    function handleTextSearch(content: string){
-      const text = content;
-      setTextSearch(text);
-    }
+    takeDataValues(datas);
+  }, [datas]);
   
   return (
     <>
@@ -73,12 +96,10 @@ export default function Home(){
       <Header searchFunction={handleTextSearch}/>
     </header>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-1 m-1">
-      {pokemons.map((pokemon, index) => (
-        <Principal key={index} name={pokemon.name} ability={"teste"}/>
+    <div className="grid grid-cols-2 xl:grid-cols-3 justify-items-center gap-y-1 xl:gap-1 m-1">
+      {pokemons.map((pokemon, id) => (
+        <Principal key={id} name={pokemon.name} abilities={pokemon.abilities}/>
       ))}
-      <Principal name="outro teste" ability='teste'/>
-      <Principal name="outro teste" ability='teste'/>
     </div>
     </>
   )
