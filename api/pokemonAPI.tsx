@@ -2,8 +2,8 @@ import { PokemonClient }  from "pokenode-ts";
 
 const PokemonApi = new PokemonClient();
 
-export function searchPokemonByName(name: string){
-  PokemonApi.getPokemonByName(name)
+export async function searchPokemonByName(name: string){
+  return await PokemonApi.getPokemonByName(name)
     .then((data) => {
       return data;
     })
@@ -12,20 +12,20 @@ export function searchPokemonByName(name: string){
     });
 };
 
-export function searchPokemonById(id: number){
-  PokemonApi.getPokemonById(id)
+export async function searchPokemonById(id: number){
+  return await PokemonApi.getPokemonById(id)
   .then((data) => {
-    console.log(data);
+    return data;
   })
   .catch((error) => {
     throw new Error(error);
   })
 };
 
-export function searchPokemonList(){
-  PokemonApi.listPokemons()
+export async function searchPokemonList(){
+  return await PokemonApi.listPokemons()
   .then((data) => {
-    return data;
+    return data.results;
   })
   .catch((error) => {
     throw new Error(error);
