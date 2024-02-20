@@ -6,7 +6,7 @@ export interface Pokemon{
 export interface PokemonAbility{
     is_hidden: boolean;
     slot: number;
-    ability: PokemonList[];
+    ability: PokemonList;
 };
 
 export interface PokemonList{
