@@ -1,10 +1,8 @@
 "use client";
 import 'tailwindcss/tailwind.css';
-import { Ability } from '../interfaces/interfacesAPI';
-interface Pokemon{
-    name: string;
-    abilities: Ability[];
-}
+import { Pokemon } from '../interfaces/interfacesAPI';
+
+
 
 export default function Principal(props: Readonly<Pokemon>){
 
@@ -17,11 +15,13 @@ export default function Principal(props: Readonly<Pokemon>){
         </span>
         
         <div className="flex flex-col flex-1 items-center">
-            {props.abilities.map((ability, id) => (
+            {props.abilities.map((abilityItem, id) => (
+                
                 <span key={id} className="text-center">
-                    {ability.name},
+                    {abilityItem.ability.name}
                 </span>
-            ))}
+                )
+            )}
         </div>
         </div>
     )
