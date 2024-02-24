@@ -30,7 +30,7 @@ export default function Home(){
 const takeDataValues = async (list: PokemonList[]) => {
   const takeElements: Pokemon[] = []; 
   try{
-      for (let i of list){
+      for(let i of list){
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i.name}`);
         const name = i.name;
         const abilities = response.data.abilities;
