@@ -10,16 +10,16 @@ export default function Principal(props: Readonly<Pokemon>){
     console.log("Dados: ", props);
     return(
         <Dialog.Root>
-            <Dialog.Trigger className="flex flex-1 flex-col gap-y-0.5 border-solid border-red-600 border-2 justify-items-center rounded-md w-28 max-w-md">
+            <Dialog.Trigger className="flex flex-1 flex-col gap-y-0.5 border-solid border-red-600 border-2 justify-items-center rounded-md w-28 max-w-md text-center">
             
-                <span className="text-center">
+                <span className="">
                     {props.name}
                 </span>
                 
                 <div className="flex flex-col flex-1 items-center">
                     {props.abilities.map((abilityItem, id) => (
                 
-                        <span key={id} className="text-center font-sans font-normal">
+                        <span key={id} className="font-sans font-normal">
                             {abilityItem.ability.name}
                         </span>
                         )
@@ -27,9 +27,22 @@ export default function Principal(props: Readonly<Pokemon>){
                 </div>
             </Dialog.Trigger>
 
-            <Dialog.Content className="fixed w-10 z-0 bg-red-400 text-black">
-                <div>Teste</div>
-            </Dialog.Content>
+            <Dialog.Portal>
+                <Dialog.Overlay className='inset-0 fixed bg-black/50'/>
+
+                <Dialog.Content className="inset-0 fixed rounded-md translate-x-1/2 w-1/2 h-1/2 bg-red-400 border-solid text-black">
+                    <div className="flex flex-col text-center">
+
+                        <h1 className="">
+                            {props.name}
+                        </h1>
+
+                        <span className="">
+
+                        </span>
+                    </div>
+                </Dialog.Content>
+            </Dialog.Portal>
 
         </Dialog.Root>
     )
