@@ -1,3 +1,8 @@
+export interface PokemonList{
+    name: string;
+    url: string;
+};
+
 export interface Pokemon{
     name: string;
     abilities: PokemonAbility[]
@@ -9,7 +14,11 @@ export interface PokemonAbility{
     ability: PokemonList;
 };
 
-export interface PokemonList{
-    name: string;
-    url: string
+export interface PokemonTypes{
+    slot: number;
+    type: PokemonList;
 };
+
+export interface PokemonStats{
+    
+}
