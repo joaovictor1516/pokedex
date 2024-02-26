@@ -34,8 +34,12 @@ const takeDataValues = async (list: PokemonList[]) => {
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i.name}`);
         const name = i.name;
         const abilities = response.data.abilities;
+        const types = response.data.types;
+        const stats = response.data.stats;
         takeElements.push({name: name, 
-                            abilities: abilities});
+                            abilities: abilities,
+                            types: types,
+                            stats: stats});
         }
 
       console.log(takeElements);
@@ -62,7 +66,11 @@ const takeDataValues = async (list: PokemonList[]) => {
     <ul className="flex">
       <li className="grid grid-cols-2 xl:grid-cols-3 justify-items-center gap-0 xl:gap-1 m-1">
         {pokemons.map((pokemon, id) => (
-          <Principal key={id} name={pokemon.name} abilities={pokemon.abilities}/>
+          <Principal key={id} 
+                    name={pokemon.name} 
+                    abilities={pokemon.abilities}
+                    types={pokemon.types}
+                    stats={pokemon.stats}/>
         ))}
       </li>
     </ul>

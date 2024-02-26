@@ -5,7 +5,9 @@ export interface PokemonList{
 
 export interface Pokemon{
     name: string;
-    abilities: PokemonAbility[]
+    abilities: PokemonAbility[];
+    types: PokemonTypes[];
+    stats: PokemonStats[];
 }
 
 export interface PokemonAbility{
@@ -20,5 +22,7 @@ export interface PokemonTypes{
 };
 
 export interface PokemonStats{
-    
-}
+    base_stat: number;
+    effort: number;
+    stat: PokemonList;
+};
