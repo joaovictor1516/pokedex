@@ -60,8 +60,8 @@ const takeDataValues = async (list: PokemonList[]) => {
       <Header searchFunction={handleTextSearch}/>
     </header>
 
-    <ul className="flex">
-      <li className="grid grid-cols-2 xl:grid-cols-3 justify-items-center gap-0 xl:gap-1 m-1">
+    <ul className="flex justify-center">
+      <li className="grid grid-cols-2 xl:grid-cols-3 gap-0 xl:gap-1 m-1 justify-center content-center">
         {pokemons.map((pokemon, id) => (
           <Principal key={id} 
                     name={pokemon.name} 
