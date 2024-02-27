@@ -5,7 +5,7 @@ import { Pokemon } from '../interfaces/interfacesAPI';
 import { useEffect, useState } from 'react';
 
 export default function Principal(props: Readonly<Pokemon>){
-    const [color, setColor] = useState("white");
+    const [color, setColor] = useState("");
 
     useEffect(() => {
         const changeColor = () => {
