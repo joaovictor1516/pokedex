@@ -21,7 +21,6 @@ export default function Home(){
     const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
     const results = await response.data.results;
     setDatas(results);
-    console.log(results)
   } catch(error){
     console.error(`Error: ${error}`);
   }
@@ -41,8 +40,6 @@ const takeDataValues = async (list: PokemonList[]) => {
                             types: types,
                             stats: stats});
         }
-
-      console.log(takeElements);
       } catch(error){
       console.error(error);
       }
