@@ -5,7 +5,7 @@ import { Pokemon } from '../interfaces/interfacesAPI';
 import { useEffect, useState } from 'react';
 
 export default function Principal(props: Readonly<Pokemon>){
-    const [color, setColor] = useState("");
+    const [color, setColor] = useState<{[key: string]: string}>({});
 
     useEffect(() => {
         const changeColor = () => {
@@ -18,12 +18,15 @@ export default function Principal(props: Readonly<Pokemon>){
                 flying: "bg-gradient-to-b from-sky-400 to-gray-400",
                 poison: "bg-purple-400"
             };
+
+            const newColors:{[key: string]: string} = {};
     
             props.types.forEach((typeItem) => {
                 if(objColors[typeItem.type.name]){
-                    setColor(objColors[typeItem.type.name]);
+                    newColors[typeItem.type.name] = objColors[typeItem.type.name];
                 }
-            })
+            });
+            setColor(newColors);
         };
 
         changeColor();
@@ -53,7 +56,7 @@ export default function Principal(props: Readonly<Pokemon>){
                 className="flex flex-row flex-1 flex-wrap gap-x-1 justify-center content-center text-center">
                     {props.types.map((typeItem, id) => (
                         <span key={id}
-                            className={`font-sans font-normal ${color} p-1 rounded`}>
+                            className={`font-sans font-normal ${color[typeItem.type.name]} p-1 rounded`}>
                             {typeItem.type.name}
                         </span>
                     ))}
