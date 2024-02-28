@@ -38,6 +38,8 @@ export default function Principal(props: Readonly<Pokemon>){
         <Dialog.Root>
             <Dialog.Trigger 
             className="flex flex-1 flex-col gap-y-0.5 border-solid border-red-600 border-2 justify-center content-center items-center text-center rounded-md h-32 w-28 md:w-52 md:h-56">
+
+                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={`Imagem do ${props.name}`} className="" />
             
                 <span className="">
                     {props.name}

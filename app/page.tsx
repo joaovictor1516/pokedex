@@ -35,10 +35,14 @@ const takeDataValues = async (list: PokemonList[]) => {
         const abilities = response.data.abilities;
         const types = response.data.types;
         const stats = response.data.stats;
-        takeElements.push({name: name, 
+        const id = response.data.id;
+        takeElements.push({ 
+                            id: id,
+                            name: name, 
                             abilities: abilities,
                             types: types,
-                            stats: stats});
+                            stats: stats
+                          });
         }
       } catch(error){
       console.error(error);
@@ -63,7 +67,8 @@ const takeDataValues = async (list: PokemonList[]) => {
     <ul className="flex justify-center">
       <li className="grid grid-cols-2 xl:grid-cols-3 gap-0 xl:gap-1 m-1 justify-center content-center">
         {pokemons.map((pokemon, id) => (
-          <Principal key={id} 
+          <Principal key={id}
+                    id={pokemon.id}
                     name={pokemon.name} 
                     abilities={pokemon.abilities}
                     types={pokemon.types}

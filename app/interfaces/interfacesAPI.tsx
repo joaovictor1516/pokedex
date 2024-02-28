@@ -4,6 +4,7 @@ export interface PokemonList{
 };
 
 export interface Pokemon{
+    id: number;
     name: string;
     abilities: PokemonAbility[];
     types: PokemonTypes[];
