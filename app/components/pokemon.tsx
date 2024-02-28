@@ -71,13 +71,15 @@ export default function Principal(props: Readonly<Pokemon>){
                 <Dialog.Overlay className='inset-0 fixed bg-black/50'/>
 
                 <Dialog.Content 
-                className="fixed inset-0 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex flex-col md:max-w-[640px] w-full md:h-[60vh] bg-red-400 border-solid md:rounded-md text-black">
+                className="fixed inset-0 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex flex-col w-full md:max-w-[640px] md:h-[60vh] bg-red-400 border-solid md:rounded-md text-black">
 
                     <Dialog.Close className="absolute top-0 right-0">
                         <X/>
                     </Dialog.Close>
 
-                    <div className="flex flex-col text-center">
+                    <div className="flex flex-col text-center justify-center content-center">
+
+                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={`Imagem do ${props.name}`} className="h-52 w-52 self-center"/>
 
                         <h1 className="">
                             {props.name}
