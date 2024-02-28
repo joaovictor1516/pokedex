@@ -17,7 +17,8 @@ export default function Principal(props: Readonly<Pokemon>){
                 water: "bg-blue-400",
                 grass: "bg-green-400",
                 flying: "bg-gradient-to-b from-sky-400 to-gray-400",
-                poison: "bg-purple-400"
+                poison: "bg-purple-400",
+                bug: "bg-green-400"
             };
 
             const newColors:{[key: string]: string} = {};
@@ -68,7 +69,7 @@ export default function Principal(props: Readonly<Pokemon>){
                 <Dialog.Overlay className='inset-0 fixed bg-black/50'/>
 
                 <Dialog.Content 
-                className="inset-0 fixed rounded-md translate-x-1/2 w-1/2 h-1/2 bg-red-400 border-solid text-black">
+                className="fixed inset-0 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex flex-col md:max-w-[640px] w-full md:h-[60vh] bg-red-400 border-solid md:rounded-md text-black">
 
                     <Dialog.Close className="absolute top-0 right-0">
                         <X/>
@@ -76,7 +77,7 @@ export default function Principal(props: Readonly<Pokemon>){
 
                     <div className="flex flex-col text-center">
 
-                        <h1 className="gap-y-1">
+                        <h1 className="">
                             {props.name}
                         </h1>
 
@@ -84,8 +85,8 @@ export default function Principal(props: Readonly<Pokemon>){
                             {props.stats.map((statsItem, id) => (
                                 <div 
                                 key={id} 
-                                className="flex flex-row flex-1 justify-center content-center gap-y-0.5">
-                                    <span>
+                                className="flex flex-row flex-1 justify-center content-center gap-x-0.5">
+                                    <span className="">
                                         {statsItem.stat.name}:
                                     </span>
                                     <p className="">
