@@ -3,6 +3,7 @@ import 'tailwindcss/tailwind.css';
 import * as Dialog from "@radix-ui/react-dialog";
 import { Pokemon } from '../interfaces/interfacesAPI';
 import { useEffect, useState } from 'react';
+import { X } from "lucide-react"
 
 export default function Principal(props: Readonly<Pokemon>){
     const [color, setColor] = useState<{[key: string]: string}>({});
@@ -68,18 +69,31 @@ export default function Principal(props: Readonly<Pokemon>){
 
                 <Dialog.Content 
                 className="inset-0 fixed rounded-md translate-x-1/2 w-1/2 h-1/2 bg-red-400 border-solid text-black">
+
+                    <Dialog.Close className="absolute top-0 right-0">
+                        <X/>
+                    </Dialog.Close>
+
                     <div className="flex flex-col text-center">
 
-                        <h1 className="">
+                        <h1 className="gap-y-1">
                             {props.name}
                         </h1>
 
-                        <span className="">
-                            
-                        </span>
-
                         <div className="">
-
+                            {props.stats.map((statsItem, id) => (
+                                <div 
+                                key={id} 
+                                className="flex flex-row flex-1 justify-center content-center gap-y-0.5">
+                                    <span>
+                                        {statsItem.stat.name}:
+                                    </span>
+                                    <p className="">
+                                       {statsItem.base_stat}
+                                    </p>
+                                    <br/>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </Dialog.Content>
