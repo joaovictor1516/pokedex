@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css';
 import Principal from './components/pokemon';
 import Header from './components/header';
+import Footer from './components/footer'
 import { Pokemon, PokemonList } from './interfaces/interfacesAPI';
 import axios from 'axios';
 
@@ -76,6 +77,10 @@ const takeDataValues = async (list: PokemonList[]) => {
         ))}
       </li>
     </ul>
+
+    <footer>
+          <Footer/>
+    </footer>
     </>
   )
 }
