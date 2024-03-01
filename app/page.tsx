@@ -67,8 +67,8 @@ const takeDataValues = async (list: PokemonList[]) => {
 
     <ul className="flex justify-center">
       <li className="grid grid-cols-2 xl:grid-cols-3 gap-0 xl:gap-1 m-1 justify-center content-center">
-        {pokemons.map((pokemon, id) => (
-          <Principal key={id}
+        {pokemons.map((pokemon) => (
+          <Principal key={pokemon.id}
                     id={pokemon.id}
                     name={pokemon.name} 
                     abilities={pokemon.abilities}
