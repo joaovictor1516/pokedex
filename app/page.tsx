@@ -51,6 +51,23 @@ const takeDataValues = async (list: PokemonList[]) => {
     setPokemons(() => [...takeElements]);
   }
 
+  const takePokemonSearch = async() => {
+    const pokemonSearched: Pokemon[]= [];
+    
+    if(textSearch !== ""){ 
+      try{
+      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${textSearch}`);
+      const datas = response.data;
+      pokemonSearched.push(datas);
+      setPokemons(pokemonSearched);
+      } catch(error){
+          console.error(error);
+      }
+    } else{
+      takeDataValues(datas);
+    }
+  }
+
   useEffect(() => {
     takeData();
   }, []);
@@ -58,6 +75,10 @@ const takeDataValues = async (list: PokemonList[]) => {
   useEffect(() => {
     takeDataValues(datas);
   }, [datas]);
+
+  useEffect(() => {
+    takePokemonSearch();
+  }, [textSearch]);
   
   return (
     <>
