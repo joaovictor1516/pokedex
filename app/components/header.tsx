@@ -21,19 +21,23 @@ export default function Header(props: Readonly<SearchBar>){
     }
 
     return(
-        <div className='bg-red-400 flex flex-row p-[5px]'>
-            <form onSubmit={handleSubmit}
-                className='flex flex-row flex-1 gap-1'>
+        <div className="bg-red-400 flex flex-1 flex-row p-[5px]">
 
+            <img src="/assets/pokeBola.png" 
+                 alt="uma poke bola" 
+                 className="w-6"/>
+
+            <form onSubmit={handleSubmit}
+                className="flex flex-row flex-1 gap-1 justify-end">
 
                 <input type="text"
-                className='bg-red-50 rounded active:border-none p-1 h-6'
-                placeholder='Buscar'
+                className="bg-red-50 rounded active:border-none p-1 h-6"
+                placeholder="Buscar"
                 onChange={handleSearch}
                 />
 
-                <button type='submit' 
-                className='rounded bg-red-50 h-6 px-1'
+                <button type="submit" 
+                className="rounded bg-red-50 h-6 px-1"
                 >
                     Buscar
                 </button>
