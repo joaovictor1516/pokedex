@@ -1,8 +1,8 @@
 "use client";
-import 'tailwindcss/tailwind.css';
+import "tailwindcss/tailwind.css";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Pokemon } from '../interfaces/interfacesAPI';
-import { useEffect, useState } from 'react';
+import { Pokemon } from "../interfaces/interfacesAPI";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react"
 
 export default function Principal(props: Readonly<Pokemon>){
