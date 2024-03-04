@@ -17,7 +17,7 @@ export default function Header(props: Readonly<SearchBar>){
 
     function handleSubmit(event: FormEvent<HTMLFormElement>){
         event.preventDefault();
-        props.searchFunction(search);
+        props.searchFunction(search.toLocaleLowerCase());
     }
 
     return(
