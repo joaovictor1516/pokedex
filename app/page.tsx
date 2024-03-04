@@ -14,7 +14,7 @@ export default function Home(){
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 
   function handleTextSearch(content: string){
-    setTextSearch(content);
+    setTextSearch(content.toLowerCase());
   }
 
   const takeData = async () => {
@@ -87,7 +87,7 @@ const takeDataValues = async (list: PokemonList[]) => {
     </header>
 
     <ul className="flex justify-center">
-      <li className="grid grid-cols-2 xl:grid-cols-3 gap-0 xl:gap-1 m-1 justify-center content-center">
+      <li className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-1 md:gap-2 m-1 justify-center content-center">
         {pokemons.map((pokemon) => (
           <Principal key={pokemon.id}
                     id={pokemon.id}
