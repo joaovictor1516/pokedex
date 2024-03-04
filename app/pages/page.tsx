@@ -9,7 +9,6 @@ import axios from 'axios';
 
 export default function Home(){
   const [datas, setDatas] = useState<PokemonList[]>([]);
-  const [games, setGames] = useState<PokemonList[]>([]);
   const [textSearch, setTextSearch] = useState("");
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
 

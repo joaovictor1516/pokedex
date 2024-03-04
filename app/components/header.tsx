@@ -1,6 +1,7 @@
 "use client"
 import 'tailwindcss/tailwind.css';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import NaveBar from '../pages/navBar';
 import { X } from 'lucide-react';
 
 interface SearchBar{
@@ -32,6 +33,8 @@ export default function Header(props: Readonly<SearchBar>){
             <img src="/assets/pokeBola.png" 
                  alt="uma poke bola" 
                  className="w-6"/>
+
+            <NaveBar/>
 
             <form onSubmit={handleSubmit}
                 className="flex flex-row flex-1 gap-1 justify-end">
