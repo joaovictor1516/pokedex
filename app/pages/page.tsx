@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import 'tailwindcss/tailwind.css';
-import Principal from './components/pokemon';
-import Header from './components/header';
-import Footer from './components/footer';
-import { Pokemon, PokemonList } from './interfaces/interfacesAPI';
+import Principal from '../components/pokemon';
+import Header from '../components/header';
+import Footer from '../components/footer';
+import { Pokemon, PokemonList } from '../interfaces/interfacesAPI';
 import axios from 'axios';
 
 export default function Home(){
