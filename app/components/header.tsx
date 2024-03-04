@@ -1,6 +1,7 @@
 "use client"
 import 'tailwindcss/tailwind.css';
-import { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { X } from 'lucide-react';
 
 interface SearchBar{
     searchFunction: (content: string) => void
@@ -20,6 +21,11 @@ export default function Header(props: Readonly<SearchBar>){
         props.searchFunction(search.toLocaleLowerCase());
     }
 
+    function handleClearSurch(){
+        setSearch("");
+        props.searchFunction("");
+    }
+
     return(
         <div className="bg-red-400 flex flex-1 flex-row p-[5px]">
 
@@ -31,13 +37,19 @@ export default function Header(props: Readonly<SearchBar>){
                 className="flex flex-row flex-1 gap-1 justify-end">
 
                 <input type="text"
-                className="bg-red-50 rounded active:border-none p-1 h-6"
+                className="bg-red-50 relative -right-6 rounded active:border-none p-1 h-6"
                 placeholder="Buscar"
                 onChange={handleSearch}
                 />
 
+                <button type="reset"
+                        className=""
+                        onClick={handleClearSurch}>
+                    <X className="relative right-1"/>
+                </button>
+
                 <button type="submit" 
-                className="rounded bg-red-50 h-6 px-1"
+                        className="rounded bg-red-50 h-6 px-1"
                 >
                     Buscar
                 </button>
