@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { X } from 'lucide-react';
 
 interface SearchBar{
-    searchFunction: (content: string) => void
+    searchFunction: (content: string) => void;
 }
 
 export default function Header(props: Readonly<SearchBar>){
@@ -31,18 +31,18 @@ export default function Header(props: Readonly<SearchBar>){
         <div className="bg-red-400 flex flex-1 flex-row p-[5px]">
 
             <img src="/assets/pokeBola.png" 
-                 alt="uma poke bola" 
+                 alt="Uma bola com a parte superior vermelha e a parte inferior branca com um traço preto na horizontal no meio da bola" 
                  className="w-6"/>
 
-            <nav className="">
-                <ul className="">
-                    <li className="">
+            <nav className="flex flex-1 flex-row">
+                <ul className="flex flex-1 flex-row justify-end gap-2">
+                    <li className="font-extralight hover:underline">
                         <Link href="/">
                             Home
                         </Link>
                     </li>
 
-                    <li className="">
+                    <li className="font-extralight hover:underline">
                         <Link href="/games">
                             Games
                         </Link>
