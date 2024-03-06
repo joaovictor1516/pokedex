@@ -41,7 +41,7 @@ export default function ShowGames(){
 
     useEffect(() => {
         takeGameSearch();
-    }, []);
+    }, [textSearch]);
 
     return(
         <RootLayout searchFunction={handleSearch}>
