@@ -1,6 +1,6 @@
 "use client";
 import "tailwindcss/tailwind.css";
-import { PokemonList } from "../../interfaces/interfacesAPI";
+import { PokemonList } from "../interfaces/interfacesAPI";
 import { useEffect, useState } from "react";
 import Games from "@/app/components/games";
 import RootLayout from "@/app/layout";
