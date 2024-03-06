@@ -3,7 +3,8 @@ import "tailwindcss/tailwind.css";
 import { PokemonList } from "../interfaces/interfacesAPI";
 import { useEffect, useState } from "react";
 import Games from "@/app/components/games";
-import RootLayout from "@/app/layout";
+import Header from "../components/header";
+import Footer from "../components/footer";
 import axios from "axios";
 
 export default function ShowGames(){
@@ -44,7 +45,8 @@ export default function ShowGames(){
     }, [textSearch]);
 
     return(
-        <RootLayout searchFunction={handleSearch}>
+        <div>
+            <Header searchFunction={handleSearch}/>
             <ul className="flex justify-center my-1 md:my-2">
                 <li className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-1 md:gap-2 justify-center content-center">
                 {games.map((game, id) => (
@@ -52,6 +54,7 @@ export default function ShowGames(){
                 ))}
                 </li>
             </ul>
-        </RootLayout>
+            <Footer/>
+        </div>
     )
 }
