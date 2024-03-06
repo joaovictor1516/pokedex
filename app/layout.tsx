@@ -1,32 +1,23 @@
-"use client";
+import type { Metadata } from "next";
 
-import Header from "./components/header";
-import Footer from "./components/footer";
-
-export const metadata = {
+export const metadata: Metadata = {
   title: 'pokedex',
-  description: 'A pokedex made with next.JS',
-}
+  description: 'A pokedex made with next.JS'
+};
 
 export default function RootLayout({
-  children,
-  searchFunction
+  children
 }: Readonly<{
   children: React.ReactNode;
-  searchFunction: (content: string) => void;
 }>) {
 
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="icon" href="favicon.ico" sizes="any" />
+        <link rel="icon" href="favicon.ico" sizes="any"/>
       </head>
       <body className="bg-stone-200 text-black">
-            <Header searchFunction={searchFunction}/>
-              <main>
-                {children}
-              </main>
-              <Footer/>
+        {children}
       </body>
     </html>
   )
