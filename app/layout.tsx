@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'pokedex',
-  description: 'A pokedex made with next.JS'
+  title: "pokedex",
+  description: "A pokedex made with next.JS"
 };
 
 export default function RootLayout({
