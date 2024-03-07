@@ -9,6 +9,7 @@ export interface Pokemon{
     abilities: PokemonAbility[];
     types: PokemonTypes[];
     stats: PokemonStats[];
+    evoluctions: number[];
 }
 
 export interface PokemonAbility{
