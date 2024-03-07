@@ -52,6 +52,10 @@ export default function Principal(props: Readonly<Pokemon>){
         takePokemonEvoluctions()
     }, [props.evoluctions]);
 
+    useEffect(() => {
+        console.log(props.id, props.evoluctions);
+    }), [props.id];
+
     return(
         <Dialog.Root>
             <Dialog.Trigger 
@@ -78,9 +82,9 @@ export default function Principal(props: Readonly<Pokemon>){
                 <Dialog.Overlay className='inset-0 fixed bg-black/50'/>
 
                 <Dialog.Content 
-                className="fixed inset-0 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex flex-col w-full md:max-w-[640px] md:h-[70vh] bg-red-400 border-solid md:rounded-md text-black">
+                className="fixed inset-0 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 flex flex-col w-full md:max-w-[640px] md:h-[85vh] bg-red-400 border-solid md:rounded-md text-black">
 
-                    <Dialog.Close className="absolute top-0 right-0">
+                    <Dialog.Close className="absolute top-5 right-5">
                         <X/>
                     </Dialog.Close>
 
@@ -126,19 +130,28 @@ export default function Principal(props: Readonly<Pokemon>){
                                 )
                             )}
                         </div>
+
+                        <h3 className="font-semibold mt-1">
+                            Phases:
+                        </h3>
                         
                         <div className="flex flex-row flex-1 flex-wrap gap-x-1 justify-center content-center text-center">
                             {evoluctionsPokemon.map((pokemon) => (
-                                <span key={pokemon.id}>
-                                    {pokemon.name}
+                                <div className="">
+                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} 
+                                        alt={`Imagem do pokemon ${pokemon.name}`} 
+                                        className=""/>
+                                    
+                                    <span key={pokemon.id} className="font-normal">
+                                    {pokemon.name[0].toUpperCase().concat(pokemon.name.slice(1))}
                                 </span>
+                                </div>
                             ))}
                         </div>
 
                     </div>
                 </Dialog.Content>
             </Dialog.Portal>
-
         </Dialog.Root>
     )
 }
