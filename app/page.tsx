@@ -53,12 +53,23 @@ const takeDataValues = async (list: PokemonList[]) => {
         const types = response.data.types;
         const stats = response.data.stats;
         const id = response.data.id;
+        const evoluctions = [];
+
+        if((id + 2) % 3 === 0){
+          evoluctions.push(id, id + 1, id + 2); 
+        } else if((id + 1) % 3 === 0){
+          evoluctions.push(id - 1, id, id + 1);
+        } else{
+          evoluctions.push(id - 2, id - 1, id);
+        }
+
         takeElements.push({ 
                             id: id,
                             name: name, 
                             abilities: abilities,
                             types: types,
-                            stats: stats
+                            stats: stats,
+                            evoluctions: evoluctions
                           });
         }
       } catch(error){
@@ -90,7 +101,8 @@ const takeDataValues = async (list: PokemonList[]) => {
                         name={pokemon.name}
                         abilities={pokemon.abilities}
                         types={pokemon.types}
-                        stats={pokemon.stats}/>
+                        stats={pokemon.stats}
+                        evoluctions={pokemon.evoluctions}/>
             ))}
           </li>
         </ul>
