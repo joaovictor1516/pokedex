@@ -3,8 +3,8 @@ import 'tailwindcss/tailwind.css';
 
 export default function Footer(){
     return (
-        <div className="flex flex-row justify-center gap-x-1 bg-red-400">
-            <ul className="flex flex-col content-center flex-wrap items-baseline gap-y-0.5 w-40">
+        <div className="flex flex-row content-center items-center justify-center gap-x-1 bg-red-400 h-40">
+            <ul className="flex flex-col content-center justify-center flex-wrap items-baseline gap-y-0.5 w-40">
                 <h4 className="font-semibold">
                     Minhas redes:
                 </h4>
@@ -46,7 +46,7 @@ export default function Footer(){
                 </li>
             </ul>
             
-            <ul className="flex flex-col content-center flex-wrap items-baseline gap-y-0.5 w-40">
+            <ul className="flex flex-col content-center justify-center flex-wrap items-baseline gap-y-0.5 w-40">
                 <h4 className="font-semibold">
                     Tecnologias usadas:
                 </h4>
