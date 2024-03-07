@@ -56,8 +56,7 @@ export default function Header(props: Readonly<SearchBar>){
                 <input type="text"
                 className="bg-red-50 relative -right-6 rounded active:border-none p-1 h-6"
                 placeholder="Buscar"
-                onChange={handleSearch}
-                />
+                onChange={handleSearch}/>
 
                 <button type="reset"
                         className=""
@@ -66,8 +65,7 @@ export default function Header(props: Readonly<SearchBar>){
                 </button>
 
                 <button type="submit" 
-                        className="rounded bg-red-50 h-6 px-1"
-                >
+                        className="rounded bg-red-50 h-6 px-1">
                     Buscar
                 </button>
             </form>
