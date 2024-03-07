@@ -3,37 +3,54 @@ import "tailwindcss/tailwind.css";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Pokemon } from "../interfaces/interfacesAPI";
 import { useEffect, useState } from "react";
-import { X } from "lucide-react"
+import { X } from "lucide-react";
+import axios from "axios";
 
 export default function Principal(props: Readonly<Pokemon>){
     const [color, setColor] = useState<{[key: string]: string}>({});
+    const [evoluctionsPokemon, setEvoluctionsPokemon] = useState<Pokemon[]>([]);
 
-    useEffect(() => {
-        const changeColor = () => {
-            const objColors:{[key: string]: string} = {
-                fire: "bg-red-400",
-                normal: "bg-neutral-400",
-                rock: "bg-gray-400",
-                water: "bg-blue-400",
-                grass: "bg-green-400",
-                flying: "bg-gradient-to-b from-sky-400 to-gray-400",
-                poison: "bg-purple-400",
-                bug: "bg-green-400",
-                electric: "bg-yellow-400"
-            };
-
-            const newColors:{[key: string]: string} = {};
     
-            props.types.forEach((typeItem) => {
-                if(objColors[typeItem.type.name]){
-                    newColors[typeItem.type.name] = objColors[typeItem.type.name];
-                }
-            });
-            setColor(newColors);
+    const changeColor = () => {
+        const objColors:{[key: string]: string} = {
+            fire: "bg-red-400",
+            normal: "bg-neutral-400",
+            rock: "bg-gray-400",
+            water: "bg-blue-400",
+            grass: "bg-green-400",
+            flying: "bg-gradient-to-b from-sky-400 to-gray-400",
+            poison: "bg-purple-400",
+            bug: "bg-green-400",
+            electric: "bg-yellow-400"
         };
 
+        const newColors:{[key: string]: string} = {};
+
+        props.types.forEach((typeItem) => {
+            if(objColors[typeItem.type.name]){
+                newColors[typeItem.type.name] = objColors[typeItem.type.name];
+            }
+        });
+        setColor(newColors);
+    };
+
+    const takePokemonEvoluctions = async() => {
+        const pokemon: Pokemon[] = [];
+        for(let i of props.evoluctions){
+            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`);
+            const datas = await response.data;
+            pokemon.push(datas);
+        }
+        setEvoluctionsPokemon(pokemon)
+    };
+
+    useEffect(() => {
         changeColor();
     },[props.types]);
+
+    useEffect(() => {
+        takePokemonEvoluctions()
+    }, [props.evoluctions]);
 
     return(
         <Dialog.Root>
@@ -108,6 +125,14 @@ export default function Principal(props: Readonly<Pokemon>){
                                 </span>
                                 )
                             )}
+                        </div>
+                        
+                        <div className="flex flex-row flex-1 flex-wrap gap-x-1 justify-center content-center text-center">
+                            {evoluctionsPokemon.map((pokemon) => (
+                                <span key={pokemon.id}>
+                                    {pokemon.name}
+                                </span>
+                            ))}
                         </div>
 
                     </div>
