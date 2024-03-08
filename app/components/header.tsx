@@ -49,8 +49,8 @@ export default function Header(props: Readonly<SearchBar>){
                     </li>
 
                     <li className="font-extralight hover:underline">
-                        <Link href="/itens">
-                            Itens
+                        <Link href="/items">
+                            Items
                         </Link>
                     </li>
                 </ul>
