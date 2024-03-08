@@ -28,3 +28,13 @@ export interface PokemonStats{
     effort: number;
     stat: PokemonList;
 };
+
+export interface PokemonItems{
+    id: number;
+    name: string;
+    sprites: PokemonSprite;
+};
+
+export interface PokemonSprite{
+    default: string;
+}
