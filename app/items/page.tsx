@@ -1,14 +1,14 @@
 "use client";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import Itens from "../components/itens";
+import Items from "../components/items";
 import { useState, useEffect } from "react";
 
-export default function ShowItens(){
+export default function ShowItems(){
     return(
         <div>
             <Header searchFunction={() => "oi"}/>
-                <Itens/>
+                <Items/>
             <Footer/>
         </div>
     )
