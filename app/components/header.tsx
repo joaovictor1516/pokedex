@@ -28,7 +28,7 @@ export default function Header(props: Readonly<SearchBar>){
     }
 
     return(
-        <div className="bg-red-400 flex flex-1 flex-row p-[5px]">
+        <div className="bg-red-400 flex flex-1 flex-row p-[5px] fixed top-0 left-0 right-0">
 
             <img src="/assets/pokeBola.png" 
                  alt="Uma bola com a parte superior vermelha e a parte inferior branca com um traço preto na horizontal no meio da bola" 
@@ -45,6 +45,12 @@ export default function Header(props: Readonly<SearchBar>){
                     <li className="font-extralight hover:underline">
                         <Link href="/games">
                             Games
+                        </Link>
+                    </li>
+
+                    <li className="font-extralight hover:underline">
+                        <Link href="/itens">
+                            Itens
                         </Link>
                     </li>
                 </ul>
