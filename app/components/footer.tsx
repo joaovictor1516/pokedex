@@ -3,7 +3,7 @@ import 'tailwindcss/tailwind.css';
 
 export default function Footer(){
     return (
-        <div className="flex flex-row fixed right-0 left-0 bottom-0 content-center items-center justify-center gap-x-1 bg-red-400 h-40">
+        <div className="flex flex-row relative right-0 left-0 bottom-0 content-center items-center justify-center gap-x-1 bg-red-400 h-36">
             <ul className="flex flex-col content-center justify-center flex-wrap items-baseline gap-y-0.5 w-40">
                 <h4 className="font-semibold">
                     Minhas redes:
