@@ -9,7 +9,7 @@ export interface Pokemon{
     abilities: PokemonAbility[];
     types: PokemonTypes[];
     stats: PokemonStats[];
-    evoluctions: number[];
+    evoluctions: PokemonEvolutionChains[];
 }
 
 export interface PokemonAbility{
@@ -37,4 +37,9 @@ export interface PokemonItems{
 
 export interface PokemonSprite{
     default: string;
-}
+};
+
+export interface PokemonEvolutionChains{
+    species: PokemonList;
+    evolves_to: PokemonEvolutionChains["species"];
+};
