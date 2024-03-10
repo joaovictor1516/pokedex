@@ -15,6 +15,10 @@ export default function ShowItems(props: Readonly<PokemonItems>){
         setTextSearch(text.toLowerCase());
     };
 
+    const searchItem =async() => {
+        
+    };
+
     const takeDataItems = async() => {
         const response = await axios.get("https://pokeapi.co/api/v2/item");
         const results = await response.data.results;
@@ -46,7 +50,7 @@ export default function ShowItems(props: Readonly<PokemonItems>){
     return(
         <div>
             <Header searchFunction={searchFunction}/>
-                <ul className="flex justify-center my-10">
+                <ul className="flex justify-center my-1 md:my-2">
                     <li className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-1 md:gap-2 justify-center content-center">
                         
                         {items.map((item) => (
