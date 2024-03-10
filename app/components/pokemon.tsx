@@ -1,7 +1,7 @@
 "use client";
 import "tailwindcss/tailwind.css";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Pokemon } from "../interfaces/interfacesAPI";
+import { Pokemon, PokemonEvoluction} from "../interfaces/interfacesAPI";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import axios from "axios";
@@ -9,7 +9,6 @@ import axios from "axios";
 export default function Principal(props: Readonly<Pokemon>){
     const [color, setColor] = useState<{[key: string]: string}>({});
     const [evoluctionsPokemon, setEvoluctionsPokemon] = useState<Pokemon[]>([]);
-
     
     const changeColor = () => {
         const objColors:{[key: string]: string} = {
@@ -35,13 +34,22 @@ export default function Principal(props: Readonly<Pokemon>){
     };
 
     const takePokemonEvoluctions = async() => {
-        const pokemon: Pokemon[] = [];
-        for(let i of props.evoluctions){
-            const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`);
-            const datas = await response.data;
-            pokemon.push(datas);
-        }
-        setEvoluctionsPokemon(pokemon)
+        const evoluctionsData = await Promise.all(
+            props.evoluctions.evolves_to.map(
+                async(evoluction: PokemonEvoluction) => {
+                    for(let i of [evoluction]) {
+                        if(i.species.name !== undefined){
+                            const request = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i.species.name}`);
+                            const data = await request.data;
+                            return data
+                        }
+                    }
+            })
+        );
+
+        const filtedEvoluctions = evoluctionsData.filter(evoluction => evoluction !== null);
+
+        setEvoluctionsPokemon(exisitingEvoluctions => [...exisitingEvoluctions, ...evoluctionsData]);
     };
 
     useEffect(() => {
@@ -49,15 +57,20 @@ export default function Principal(props: Readonly<Pokemon>){
     },[props.types]);
 
     useEffect(() => {
-        takePokemonEvoluctions()
-    }, [props.evoluctions]);
+        
+    })
+
+    useEffect(() => {
+        takePokemonEvoluctions();
+        console.log(props.abilities);
+    }, []);
 
     return(
         <Dialog.Root>
             <Dialog.Trigger 
             className="flex flex-1 flex-col gap-y-0.5 border-solid border-red-400 border-2 justify-center content-center items-center text-center rounded-md h-44 w-28 md:w-52 md:h-56 hover:border-amber-400">
 
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={`Imagem do ${props.name}`} className="" />
+                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${props.id}.gif`} alt={`Gif do ${props.name}`} className="" />
             
                 <span className="font-normal md:font-bold">
                     {props.name[0].toUpperCase().concat(props.name.slice(1))}
@@ -78,7 +91,7 @@ export default function Principal(props: Readonly<Pokemon>){
                 <Dialog.Overlay className='inset-0 fixed bg-black/50'/>
 
                 <Dialog.Content 
-                className="fixed inset-0 xl:inset-auto xl:top-1/2 md:left-1/2 md:-translate-x-1/2 xl:-translate-y-1/2 flex flex-col w-full xl:max-w-[640px] xl:h-[85vh] bg-red-400 border-solid xl:rounded-md text-black">
+                className="fixed inset-0 xl:top-1/2 md:left-1/2 md:-translate-x-1/2 xl:-translate-y-1/2 flex flex-col w-full xl:max-w-[640px] xl:h-[85vh] bg-red-400 border-solid xl:rounded-md text-black">
 
                     <Dialog.Close className="absolute top-2 right-3 md:top-6 md:right-6 xl:top-5 xl:right-5">
                         <X/>
@@ -86,7 +99,7 @@ export default function Principal(props: Readonly<Pokemon>){
 
                     <div className="flex flex-col text-center justify-center content-center">
 
-                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={`Imagem do ${props.name}`} className="h-52 w-52 self-center"/>
+                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${props.id}.gif`} alt={`Gif do ${props.name}`} className="h-52 w-52 self-center"/>
 
                         <h1 className="font-bold">
                             {props.name[0].toUpperCase().concat(props.name.slice(1))}
@@ -134,8 +147,8 @@ export default function Principal(props: Readonly<Pokemon>){
                         <div className="flex flex-row flex-1 flex-wrap gap-x-1 justify-center content-center text-center">
                             {evoluctionsPokemon.map((pokemon) => (
                                 <div key={pokemon.id} className="">
-                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} 
-                                        alt={`Imagem do pokemon ${pokemon.name}`} 
+                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemon.id}.gif`} 
+                                        alt={`Gif do pokemon ${pokemon.name}`} 
                                         className=""/>
                                     
                                     <span className="font-normal">

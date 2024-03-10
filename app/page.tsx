@@ -49,20 +49,13 @@ const takeDataValues = async (list: PokemonList[]) => {
       for(let i of list){
         const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i.name}`);
         const name = i.name;
-        const abilities = response.data.abilities;
-        const types = response.data.types;
-        const stats = response.data.stats;
-        const id = response.data.id;
-        const evoluctions = [];
-
-        if((id + 2) % 3 === 0){
-          evoluctions.push(id, id + 1, id + 2); 
-        } else if((id + 1) % 3 === 0){
-          evoluctions.push(id - 1, id, id + 1);
-        } else{
-          evoluctions.push(id - 2, id - 1, id);
-        }
-
+        const abilities = await response.data.abilities;
+        const types = await response.data.types;
+        const stats = await response.data.stats;
+        const id = await response.data.id;
+        const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+        const evoluctionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
+        const evoluctions = await evoluctionResponse.data.chain;
         takeElements.push({ 
                             id: id,
                             name: name, 
@@ -89,6 +82,12 @@ const takeDataValues = async (list: PokemonList[]) => {
   useEffect(() => {
     takePokemonSearch();
   }, [textSearch]);
+
+  useEffect(() => {
+    pokemons.map((pokemon) => {
+      console.log(pokemon.evoluctions);
+    })
+  }, [pokemons]);
   
   return (
     <div>
