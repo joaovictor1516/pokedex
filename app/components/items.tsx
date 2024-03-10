@@ -9,8 +9,8 @@ export default function Items(props: Readonly<PokemonItems>){
                 alt={`Image of the item ${props.name}`} 
                 className=""/>
 
-            <h3 className="">
-                {props.name}
+            <h3 className="font-normal md:font-bold">
+                {props.name[0].toUpperCase().concat(props.name.slice(1))}
             </h3>
         </div>
     )
