@@ -9,6 +9,7 @@ import axios from "axios";
 export default function Principal(props: Readonly<Pokemon>){
     const [color, setColor] = useState<{[key: string]: string}>({});
     const [evoluctionsPokemon, setEvoluctionsPokemon] = useState<Pokemon[]>([]);
+    let counter = 1;
     
     const changeColor = () => {
         const objColors:{[key: string]: string} = {
@@ -34,50 +35,51 @@ export default function Principal(props: Readonly<Pokemon>){
     };
 
     const takePokemonEvoluctions = async() => {
-        const evoluctionsData = await Promise.all(
-            props.evoluctions.evolves_to.map(
+        await Promise.all(
+            props.evoluctions.map(
                 async(evoluction: PokemonEvoluction) => {
-                    for(let i of [evoluction]) {
-                        if(i.species.name !== undefined){
-                            const request = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i.species.name}`);
-                            const data = await request.data;
-                            return data
-                        }
+                    console.log("evoluction-pokemon.tsx: ", evoluction);
+                    for(let i of [evoluction.evolves_to]) {
+                        const pokemonEvoluction = [i].map((pokemon) => {
+                            return pokemon.species.name;
+                        });
+                        const request = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonEvoluction}`);
+                        const data = await request.data;
+                        setEvoluctionsPokemon([data]);
                     }
-            })
+                }
+            )
         );
-
-        const filtedEvoluctions = evoluctionsData.filter(evoluction => evoluction !== null);
-
-        setEvoluctionsPokemon(exisitingEvoluctions => [...exisitingEvoluctions, ...evoluctionsData]);
     };
 
     useEffect(() => {
         changeColor();
     },[props.types]);
 
-    useEffect(() => {
-        
-    })
 
-    useEffect(() => {
-        takePokemonEvoluctions();
-        console.log(props.abilities);
-    }, []);
+if(props.evoluctions){
+    while(counter == 1){
+        useEffect(() => {
+            takePokemonEvoluctions();
+        }, [props.evoluctions]);
+
+        counter = 2;
+    };
+};
 
     return(
         <Dialog.Root>
             <Dialog.Trigger 
             className="flex flex-1 flex-col gap-y-0.5 border-solid border-red-400 border-2 justify-center content-center items-center text-center rounded-md h-44 w-28 md:w-52 md:h-56 hover:border-amber-400">
 
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${props.id}.gif`} alt={`Gif do ${props.name}`} className="" />
+                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${props.id}.gif`} alt={`Gif do ${props.name}`} className="w-14 h-16 mt-5" />
             
                 <span className="font-normal md:font-bold">
                     {props.name[0].toUpperCase().concat(props.name.slice(1))}
                 </span>
                 
                 <div 
-                className="flex flex-row flex-1 flex-wrap gap-x-1 justify-center content-center text-center">
+                className="flex flex-row flex-wrap gap-x-1 mt-4 justify-center content-center text-center">
                     {props.types.map((typeItem, id) => (
                         <span key={id}
                             className={`font-thin md:font-normal ${color[typeItem.type.name]} p-0.5 md:p-1 rounded`}>

@@ -4,17 +4,18 @@ import 'tailwindcss/tailwind.css';
 import Principal from './components/pokemon';
 import Header from './components/header';
 import Footer from './components/footer';
-import { Pokemon, PokemonList } from './interfaces/interfacesAPI';
+import { Pokemon, PokemonEvoluction, PokemonList } from './interfaces/interfacesAPI';
 import axios from 'axios';
 
 export default function Home(){
   const [datas, setDatas] = useState<PokemonList[]>([]);
   const [textSearch, setTextSearch] = useState("");
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [pokemonsEvoluctions, setPokemonsEvoluctions] = useState<Pokemon[]>([]);
 
   function handleTextSearch(content: string){
     setTextSearch(content.toLowerCase());
-  }
+  };
 
   const takePokemonSearch = async() => {
     const pokemonSearched: Pokemon[]= [];
@@ -31,7 +32,7 @@ export default function Home(){
     } else{
       takeDataValues(datas);
     }
-  }
+  };
 
   const takeData = async () => {
   try{
@@ -41,6 +42,21 @@ export default function Home(){
   } catch(error){
     console.error(`Error: ${error}`);
   }
+};
+
+const takePokemonEvoluctions = async(id: string) => {
+    const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+    const evoluctionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
+    const evoluctionsElements = await evoluctionResponse.data.chain;
+    
+    const evoluctionsResponseElements = [evoluctionsElements].map((elements: PokemonEvoluction) => {
+      const evoluctions = elements;
+      return evoluctions;
+    });
+
+    console.log("evoluctionsResponseElements: ", evoluctionsResponseElements)
+
+    return evoluctionsResponseElements;
 }
 
 const takeDataValues = async (list: PokemonList[]) => {
@@ -53,9 +69,8 @@ const takeDataValues = async (list: PokemonList[]) => {
         const types = await response.data.types;
         const stats = await response.data.stats;
         const id = await response.data.id;
-        const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-        const evoluctionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
-        const evoluctions = await evoluctionResponse.data.chain;
+        const evoluctions = await takePokemonEvoluctions(id);
+
         takeElements.push({ 
                             id: id,
                             name: name, 
@@ -69,7 +84,7 @@ const takeDataValues = async (list: PokemonList[]) => {
       console.error(error);
       }
     setPokemons(() => [...takeElements]);
-  }
+  };
 
   useEffect(() => {
     takeData();
@@ -82,12 +97,6 @@ const takeDataValues = async (list: PokemonList[]) => {
   useEffect(() => {
     takePokemonSearch();
   }, [textSearch]);
-
-  useEffect(() => {
-    pokemons.map((pokemon) => {
-      console.log(pokemon.evoluctions);
-    })
-  }, [pokemons]);
   
   return (
     <div>
