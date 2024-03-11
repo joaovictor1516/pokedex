@@ -9,8 +9,8 @@ export interface Pokemon{
     abilities: PokemonAbility[];
     types: PokemonTypes[];
     stats: PokemonStats[];
-    evoluctions: PokemonEvoluction;
-}
+    evoluctions: PokemonEvoluction[];
+};
 
 export interface PokemonAbility{
     is_hidden: boolean;
