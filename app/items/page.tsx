@@ -25,7 +25,6 @@ export default function ShowItems(props: Readonly<PokemonItems>){
                 });
                 searchFunction(textSearch);
                 takeItems(itemSearched);
-
             } catch(error){
                 console.error(error);
             }
