@@ -18,14 +18,15 @@ export default function Home(){
   };
 
   const takePokemonSearch = async() => {
-    const pokemonSearched: Pokemon[]= [];
-    
     if(textSearch !== undefined && textSearch.trim() !== ""){ 
       try{
-      const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${textSearch}`);
-      const datas = response.data;
-      pokemonSearched.push(datas);
-      setPokemons(pokemonSearched);
+        const pokemonSearched: PokemonList[]= [];
+        pokemonSearched.push({
+          name: textSearch.toLowerCase(),
+          url: ""
+        });
+        handleTextSearch(textSearch);
+        takeDataValues(pokemonSearched);
       } catch(error){
           console.error(error);
       }
@@ -50,7 +51,7 @@ const takePokemonEvoluctions = async(id: string) => {
     const evoluctionsElements = await evoluctionResponse.data.chain;
     
     const evoluctionsResponseElements = [evoluctionsElements].map((elements: PokemonEvoluction) => {
-      const evoluctions = elements;
+      const evoluctions = elements.evolves_to;
       return evoluctions;
     });
 
