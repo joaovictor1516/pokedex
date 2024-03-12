@@ -16,7 +16,22 @@ export default function ShowItems(props: Readonly<PokemonItems>){
     };
 
     const searchItem =async() => {
-        
+        if(textSearch !== undefined && textSearch.trim() !== ""){
+            try{
+                const itemSearched:PokemonList[] =[];
+                itemSearched.push({
+                    name: textSearch.toLowerCase(),
+                    url: ""
+                });
+                searchFunction(textSearch);
+                takeItems(itemSearched);
+
+            } catch(error){
+                console.error(error);
+            }
+        } else{
+            takeItems(data);
+        }
     };
 
     const takeDataItems = async() => {
@@ -46,6 +61,10 @@ export default function ShowItems(props: Readonly<PokemonItems>){
     useEffect(() => {
         takeItems(data);
     }, [data]);
+
+    useEffect(() => {
+     searchItem();
+    }, [textSearch]);
     
     return(
         <div>
