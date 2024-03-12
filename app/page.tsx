@@ -11,7 +11,6 @@ export default function Home(){
   const [datas, setDatas] = useState<PokemonList[]>([]);
   const [textSearch, setTextSearch] = useState("");
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [pokemonsEvoluctions, setPokemonsEvoluctions] = useState<Pokemon[]>([]);
 
   function handleTextSearch(content: string){
     setTextSearch(content.toLowerCase());
@@ -50,14 +49,15 @@ const takePokemonEvoluctions = async(id: string) => {
     const evoluctionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
     const evoluctionsElements = await evoluctionResponse.data.chain;
     
-    const evoluctionsResponseElements = [evoluctionsElements].map((elements: PokemonEvoluction) => {
-      const evoluctions = elements.evolves_to;
-      return evoluctions;
-    });
+    // const evoluctionsResponseElements = [evoluctionsElements.evolves_to].map((elements: PokemonEvoluction) => {
+    //   return elements;
+    // });
 
-    console.log("evoluctionsResponseElements: ", evoluctionsResponseElements)
+    // console.log("evoluctionsResponseElements: ", evoluctionsResponseElements);
+    console.log("evoluctionsElements: ", evoluctionsElements.species.name);
 
-    return evoluctionsResponseElements;
+
+    return evoluctionsElements;
 }
 
 const takeDataValues = async (list: PokemonList[]) => {

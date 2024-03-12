@@ -36,17 +36,13 @@ export default function Principal(props: Readonly<Pokemon>){
 
     const takePokemonEvoluctions = async() => {
         await Promise.all(
-            props.evoluctions.map(
+            [props.evoluctions].map(
                 async(evoluction: PokemonEvoluction) => {
-                    console.log("evoluction-pokemon.tsx: ", evoluction);
-                    for(let i of [evoluction.evolves_to]) {
-                        const pokemonEvoluction = [i].map((pokemon) => {
-                            return pokemon.species.name;
-                        });
-                        const request = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonEvoluction}`);
-                        const data = await request.data;
-                        setEvoluctionsPokemon([data]);
-                    }
+                    console.log("evoluction-pokemon.tsx: ", evoluction.species);
+
+                    const request = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evoluction.species.name}`);
+                    const data = await request.data;
+                    setEvoluctionsPokemon([data]);
                 }
             )
         );
@@ -58,7 +54,7 @@ export default function Principal(props: Readonly<Pokemon>){
 
 
 if(props.evoluctions){
-    while(counter == 1){
+    while(counter === 1){
         useEffect(() => {
             takePokemonEvoluctions();
         }, [props.evoluctions]);
@@ -93,7 +89,7 @@ if(props.evoluctions){
                 <Dialog.Overlay className='inset-0 fixed bg-black/50'/>
 
                 <Dialog.Content 
-                className="fixed inset-0 xl:top-1/2 md:left-1/2 md:-translate-x-1/2 xl:-translate-y-1/2 flex flex-col w-full xl:max-w-[640px] xl:h-[85vh] bg-red-400 border-solid xl:rounded-md text-black">
+                className="fixed inset-0 xl:top-1/2 md:left-1/2 md:-translate-x-1/2 xl:-translate-y-1/2 flex flex-col w-full xl:max-w-[640px] xl:h-[85vh] bg-red-400 border-solid xl:rounded-md text-black md:overflow-y-scroll  xl:overflow-auto">
 
                     <Dialog.Close className="absolute top-2 right-3 md:top-6 md:right-6 xl:top-5 xl:right-5">
                         <X/>
@@ -101,7 +97,7 @@ if(props.evoluctions){
 
                     <div className="flex flex-col text-center justify-center content-center">
 
-                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${props.id}.gif`} alt={`Gif do ${props.name}`} className="h-52 w-52 self-center"/>
+                        <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={`Image of ${props.name}`} className="h-52 w-52 self-center"/>
 
                         <h1 className="font-bold">
                             {props.name[0].toUpperCase().concat(props.name.slice(1))}
@@ -149,7 +145,7 @@ if(props.evoluctions){
                         <div className="flex flex-row flex-1 flex-wrap gap-x-1 justify-center content-center text-center">
                             {evoluctionsPokemon.map((pokemon) => (
                                 <div key={pokemon.id} className="">
-                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemon.id}.gif`} 
+                                    <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} 
                                         alt={`Gif do pokemon ${pokemon.name}`} 
                                         className=""/>
                                     
