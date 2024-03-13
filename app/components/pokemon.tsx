@@ -1,7 +1,7 @@
 "use client";
 import "tailwindcss/tailwind.css";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Pokemon, PokemonEvoluction} from "../interfaces/interfacesAPI";
+import { Pokemon } from "../interfaces/interfacesAPI";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import axios from "axios";
@@ -36,11 +36,9 @@ export default function Principal(props: Readonly<Pokemon>){
 
     const takePokemonEvoluctions = async() => {
         await Promise.all(
-            [props.evoluctions].map(
-                async(evoluction: PokemonEvoluction) => {
-                    console.log("evoluction-pokemon.tsx: ", evoluction.species);
-
-                    const request = await axios.get(`https://pokeapi.co/api/v2/pokemon/${evoluction.species.name}`);
+            props.listForms.map(
+                async(pokemonFormId: number) => {
+                    const request = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonFormId}`);
                     const data = await request.data;
                     setEvoluctionsPokemon([data]);
                 }

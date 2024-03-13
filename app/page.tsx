@@ -11,6 +11,9 @@ export default function Home(){
   const [datas, setDatas] = useState<PokemonList[]>([]);
   const [textSearch, setTextSearch] = useState("");
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+  const [evoluctionPokemon, setEvoluctionPokemon] = useState<PokemonEvoluction[]>([]);
+  const [checkEvoluctionPokemon, setCheckEvoluctionPokemon] = useState<PokemonEvoluction[]>([])
+  let listPokemonForms:number[] = [];
 
   function handleTextSearch(content: string){
     setTextSearch(content.toLowerCase());
@@ -44,23 +47,31 @@ export default function Home(){
   }
 };
 
-const takePokemonEvoluctions = async(id: string) => {
-    const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
-    const evoluctionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
-    const evoluctionsElements = await evoluctionResponse.data.chain;
-    
-    // const evoluctionsResponseElements = [evoluctionsElements.evolves_to].map((elements: PokemonEvoluction) => {
-    //   return elements;
-    // });
+const takePokemonEvoluctions = async(id: number) => { 
+  const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+  const evoluctionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
+  const evoluctionsElements = await evoluctionResponse.data.chain;
 
-    // console.log("evoluctionsResponseElements: ", evoluctionsResponseElements);
-    console.log("evoluctionsElements: ", evoluctionsElements.species.name);
+  setEvoluctionPokemon(evoluctionsElements);
 
+  setCheckEvoluctionPokemon(evoluctionsElements);
 
-    return evoluctionsElements;
-}
+  if(checkEvoluctionPokemon.length === 0){
+    setCheckEvoluctionPokemon(evoluctionsElements);
+  }
+  
+  if(checkEvoluctionPokemon === evoluctionPokemon){
+    listPokemonForms.push(id);
+  } else{
+    setCheckEvoluctionPokemon(evoluctionPokemon);
+    listPokemonForms = [];
+  }
 
-const takeDataValues = async (list: PokemonList[]) => {
+  console.log(listPokemonForms);
+  return evoluctionsElements;
+};
+
+const takeDataValues = async(list: PokemonList[]) => {
   const takeElements: Pokemon[] = []; 
   try{
       for(let i of list){
@@ -78,7 +89,8 @@ const takeDataValues = async (list: PokemonList[]) => {
                             abilities: abilities,
                             types: types,
                             stats: stats,
-                            evoluctions: evoluctions
+                            evoluctions: evoluctions,
+                            listForms: listPokemonForms
                           });
         }
       } catch(error){
@@ -98,6 +110,10 @@ const takeDataValues = async (list: PokemonList[]) => {
   useEffect(() => {
     takePokemonSearch();
   }, [textSearch]);
+
+  useEffect(() => {
+    console.log("checkEvoluctionPokemon: ", checkEvoluctionPokemon);
+  }, [checkEvoluctionPokemon]);
   
   return (
     <div>
@@ -111,7 +127,8 @@ const takeDataValues = async (list: PokemonList[]) => {
                         abilities={pokemon.abilities}
                         types={pokemon.types}
                         stats={pokemon.stats}
-                        evoluctions={pokemon.evoluctions}/>
+                        evoluctions={pokemon.evoluctions}
+                        listForms={pokemon.listForms}/>
             ))}
           </li>
         </ul>

@@ -10,6 +10,7 @@ export interface Pokemon{
     types: PokemonTypes[];
     stats: PokemonStats[];
     evoluctions: PokemonEvoluction[];
+    listForms: number[];
 };
 
 export interface PokemonAbility{
