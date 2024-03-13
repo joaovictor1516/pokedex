@@ -28,12 +28,12 @@ export default function Home(){
           url: ""
         });
         handleTextSearch(textSearch);
-        takeDataValues(pokemonSearched);
+        await takeDataValues(pokemonSearched);
       } catch(error){
           console.error(error);
       }
     } else{
-      takeDataValues(datas);
+      await takeDataValues(datas);
     }
   };
 
@@ -53,18 +53,20 @@ const takePokemonEvoluctions = async(id: number) => {
   const evoluctionsElements = await evoluctionResponse.data.chain;
 
   setEvoluctionPokemon(evoluctionsElements);
-
-  setCheckEvoluctionPokemon(evoluctionsElements);
+  console.log("id: ",id);
 
   if(checkEvoluctionPokemon.length === 0){
     setCheckEvoluctionPokemon(evoluctionsElements);
+    console.log("teste");
+    listPokemonForms.shift();
   }
   
-  if(checkEvoluctionPokemon === evoluctionPokemon){
-    listPokemonForms.push(id);
-  } else{
+  if(JSON.stringify(checkEvoluctionPokemon) !== JSON.stringify(evoluctionPokemon)){
+    listPokemonForms.shift();
     setCheckEvoluctionPokemon(evoluctionPokemon);
-    listPokemonForms = [];
+    console.log("iguais");
+  } else{
+    listPokemonForms.push(id);
   }
 
   console.log(listPokemonForms);
