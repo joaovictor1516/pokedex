@@ -1,7 +1,7 @@
 "use client";
 import "tailwindcss/tailwind.css";
 import * as Dialog from "@radix-ui/react-dialog";
-import { Pokemon } from "../interfaces/interfacesAPI";
+import { Pokemon, PokemonList } from "../interfaces/interfacesAPI";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import axios from "axios";
@@ -10,6 +10,7 @@ export default function Principal(props: Readonly<Pokemon>){
     const [color, setColor] = useState<{[key: string]: string}>({});
     const [evoluctionsPokemon, setEvoluctionsPokemon] = useState<Pokemon[]>([]);
     let counter = 1;
+    let takeListForms: Pokemon[] = [];
     
     const changeColor = () => {
         const objColors:{[key: string]: string} = {
@@ -37,29 +38,33 @@ export default function Principal(props: Readonly<Pokemon>){
     const takePokemonEvoluctions = async() => {
         await Promise.all(
             props.listForms.map(
-                async(pokemonFormId: number) => {
-                    const request = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonFormId}`);
+                async(pokemonFormName: PokemonList) => {
+                    const request = await axios.get(pokemonFormName.url);
                     const data = await request.data;
-                    setEvoluctionsPokemon([data]);
+                    if(takeListForms.length < 3 && props.listForms.length === 3){
+                        takeListForms.push(data);
+                    } else if(takeListForms.length < 2 && props.listForms.length === 2){
+                        takeListForms.push(data);
+                    }
                 }
             )
         );
+        setEvoluctionsPokemon(takeListForms);
     };
 
     useEffect(() => {
         changeColor();
     },[props.types]);
 
+    if(props.evoluctions){
+        while(counter === 1){
+            useEffect(() => {
+                takePokemonEvoluctions();
+            }, [props.evoluctions]);
 
-if(props.evoluctions){
-    while(counter === 1){
-        useEffect(() => {
-            takePokemonEvoluctions();
-        }, [props.evoluctions]);
-
-        counter = 2;
+            counter = 2;
+        };
     };
-};
 
     return(
         <Dialog.Root>
@@ -144,7 +149,7 @@ if(props.evoluctions){
                             {evoluctionsPokemon.map((pokemon) => (
                                 <div key={pokemon.id} className="">
                                     <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} 
-                                        alt={`Gif do pokemon ${pokemon.name}`} 
+                                        alt={`Imagem do pokemon ${pokemon.name}`} 
                                         className=""/>
                                     
                                     <span className="font-normal">
