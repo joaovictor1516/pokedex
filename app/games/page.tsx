@@ -63,7 +63,9 @@ export default function ShowGames(){
             <ul className="flex justify-center my-1 md:my-2">
                 <li className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-1 md:gap-2 justify-center content-center">
                 {games.map((game, id) => (
-                    <Games key={id} name={game.name[0].toUpperCase().concat(game.name.slice(1))} url={game.url}/>
+                    <Games key={id} 
+                        name={game.name[0].toUpperCase().concat(game.name.slice(1))} 
+                        url={game.url}/>
                 ))}
                 </li>
             </ul>
