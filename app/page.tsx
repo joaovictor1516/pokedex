@@ -11,9 +11,7 @@ export default function Home(){
   const [datas, setDatas] = useState<PokemonList[]>([]);
   const [textSearch, setTextSearch] = useState("");
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [evoluctionPokemon, setEvoluctionPokemon] = useState<PokemonEvoluction[]>([]);
-  const [checkEvoluctionPokemon, setCheckEvoluctionPokemon] = useState<PokemonEvoluction[]>([])
-  let listPokemonForms:number[] = [];
+  let listPokemonForms: PokemonList[] = [];
 
   function handleTextSearch(content: string){
     setTextSearch(content.toLowerCase());
@@ -52,24 +50,23 @@ const takePokemonEvoluctions = async(id: number) => {
   const evoluctionResponse = await axios.get(speciesResponse.data.evolution_chain.url);
   const evoluctionsElements = await evoluctionResponse.data.chain;
 
-  setEvoluctionPokemon(evoluctionsElements);
-  console.log("id: ",id);
+  listPokemonForms = [];
+  listPokemonForms.push(evoluctionsElements.species);
+  console.log("first form: ",evoluctionsElements.species);
 
-  if(checkEvoluctionPokemon.length === 0){
-    setCheckEvoluctionPokemon(evoluctionsElements);
-    console.log("teste");
-    listPokemonForms.shift();
-  }
-  
-  if(JSON.stringify(checkEvoluctionPokemon) !== JSON.stringify(evoluctionPokemon)){
-    listPokemonForms.shift();
-    setCheckEvoluctionPokemon(evoluctionPokemon);
-    console.log("iguais");
-  } else{
-    listPokemonForms.push(id);
-  }
+  [evoluctionsElements.evolves_to].map((pokemonFirstEvoluctionSpecie: PokemonEvoluction[]) => {
+    console.log("second form: ", pokemonFirstEvoluctionSpecie[0].species);
+    listPokemonForms.push(pokemonFirstEvoluctionSpecie[0].species);
+    
+    pokemonFirstEvoluctionSpecie.map((pokemonSecondEvoluctionSpecie: PokemonEvoluction[]) => {
+      if(pokemonSecondEvoluctionSpecie.evolves_to[0] !== undefined){
+        console.log("third form: ", pokemonSecondEvoluctionSpecie.evolves_to[0].species);
+        listPokemonForms.push(pokemonSecondEvoluctionSpecie.evolves_to[0].species);
+      }
+    });
+  });
 
-  console.log(listPokemonForms);
+  console.log("forms list: ",listPokemonForms);
   return evoluctionsElements;
 };
 
@@ -112,10 +109,6 @@ const takeDataValues = async(list: PokemonList[]) => {
   useEffect(() => {
     takePokemonSearch();
   }, [textSearch]);
-
-  useEffect(() => {
-    console.log("checkEvoluctionPokemon: ", checkEvoluctionPokemon);
-  }, [checkEvoluctionPokemon]);
   
   return (
     <div>
