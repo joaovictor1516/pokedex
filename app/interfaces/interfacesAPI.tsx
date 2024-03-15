@@ -49,7 +49,7 @@ export interface PokemonGeneration{
     id: number;
     name: string;
     types: PokemonList;
-    main_region: PokemonList;
+    moves: PokemonList;
     version_groups: PokemonList;
     pokemon_species: PokemonList;
 };
