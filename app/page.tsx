@@ -52,21 +52,17 @@ const takePokemonEvoluctions = async(id: number) => {
 
   listPokemonForms = [];
   listPokemonForms.push(evoluctionsElements.species);
-  console.log("first form: ",evoluctionsElements.species);
 
   [evoluctionsElements.evolves_to].map((pokemonFirstEvoluctionSpecie: PokemonEvoluction[]) => {
-    console.log("second form: ", pokemonFirstEvoluctionSpecie[0].species);
     listPokemonForms.push(pokemonFirstEvoluctionSpecie[0].species);
     
     pokemonFirstEvoluctionSpecie.map((pokemonSecondEvoluctionSpecie: PokemonEvoluction[]) => {
       if(pokemonSecondEvoluctionSpecie.evolves_to[0] !== undefined){
-        console.log("third form: ", pokemonSecondEvoluctionSpecie.evolves_to[0].species);
         listPokemonForms.push(pokemonSecondEvoluctionSpecie.evolves_to[0].species);
       }
     });
   });
 
-  console.log("forms list: ",listPokemonForms);
   return evoluctionsElements;
 };
 
