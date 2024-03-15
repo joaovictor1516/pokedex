@@ -43,8 +43,8 @@ export default function Header(props: Readonly<SearchBar>){
                     </li>
 
                     <li className="font-extralight hover:underline">
-                        <Link href="/games">
-                            Games
+                        <Link href="/generations">
+                            Generations
                         </Link>
                     </li>
 
