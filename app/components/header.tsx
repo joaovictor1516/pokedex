@@ -35,7 +35,7 @@ export default function Header(props: Readonly<SearchBar>){
                  className="w-6"/>
 
             <nav className="flex flex-1 flex-row">
-                <ul className="flex flex-1 flex-row justify-end gap-2">
+                <ul className="flex flex-1 flex-row justify-end gap-1">
                     <li className="font-extralight hover:underline">
                         <Link href="/">
                             Home
@@ -71,7 +71,7 @@ export default function Header(props: Readonly<SearchBar>){
                 </button>
 
                 <button type="submit" 
-                        className="rounded bg-red-50 relative h-6 px-1 -right-0.5">
+                        className="rounded bg-red-50 relative h-6 px-1 right-1.5 md:-right-1 xl:-right-0.5">
                     Buscar
                 </button>
             </form>
