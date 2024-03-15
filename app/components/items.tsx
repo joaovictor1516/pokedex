@@ -1,10 +1,9 @@
 "use client";
-import { useState } from "react";
 import { PokemonItems } from "../interfaces/interfacesAPI";
 
 export default function Items(props: Readonly<PokemonItems>){
     return(
-        <div className="">
+        <div className="flex items-center flex-col border-red-400 border-2 hover:border-amber-400 p-2">
             <img src={props.sprites.default} 
                 alt={`Image of the item ${props.name}`} 
                 className=""/>
