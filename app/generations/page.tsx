@@ -52,7 +52,7 @@ export default function TakeGenerations(){
                 
                 pokemonGenerations.push({
                     id: id,
-                    name: name,
+                    name: name[0].toUpperCase().concat(name.slice(1)),
                     types: types,
                     moves: moves,
                     version_groups: versionGroups,
@@ -81,17 +81,19 @@ export default function TakeGenerations(){
         <div className="">
             <Header searchFunction={handleTextSearch}/>
 
-            <div className="">
-                {generations.map((generation) => (
-                    <Generations key={generation.id}
-                                id={generation.id}
-                                name={generation.name}
-                                types={generation.types}
-                                moves={generation.moves}
-                                version_groups={generation.version_groups}
-                                pokemon_species={generation.pokemon_species}/>
-                ))}
-            </div>
+            <ul className="">
+                <li className="">
+                    {generations.map((generation) => (
+                        <Generations key={generation.id}
+                                    id={generation.id}
+                                    name={generation.name}
+                                    types={generation.types}
+                                    moves={generation.moves}
+                                    version_groups={generation.version_groups}
+                                    pokemon_species={generation.pokemon_species}/>
+                    ))}
+                </li>
+            </ul>
 
             <Footer/>
         </div>
