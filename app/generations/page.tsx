@@ -78,11 +78,11 @@ export default function TakeGenerations(){
     }, [data]);
 
     return(
-        <div className="">
+        <div>
             <Header searchFunction={handleTextSearch}/>
 
-            <ul className="">
-                <li className="">
+            <ul className="flex justify-center my-1 md:my-2">
+                <li className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-1 md:gap-2 justify-center content-center">
                     {generations.map((generation) => (
                         <Generations key={generation.id}
                                     id={generation.id}
