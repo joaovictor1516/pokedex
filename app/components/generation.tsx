@@ -13,21 +13,45 @@ export default function Generations(props: Readonly<PokemonGeneration>){
             </span>
 
             {props.types !== undefined && props.types.length > 0 ? (
-                <div className="">
-                    {props.types.map((type, id) => (
-                        <p className="" 
-                            key={id}>
+                <div className="text-center font-thin">
+                    {props.types.map((type) => (
+                        <p className="text-center font-thin" 
+                            key={type.id}>
                                 {type.name[0].toUpperCase().concat(type.name.slice(1))}
                         </p>
                     ))}
             </div>
             ) : (
             <div>
-                <span className="">
+                <p className="text-center font-thin">
                     Without new types
-                </span>
+                </p>
             </div>
             )}
+
+            <span className="text-center font-thin md:font-semibold">
+                Moves:
+            </span>
+
+            <div className="">
+                {props.moves.map((move) => (
+                    <p key={move.id} className="text-center font-thin">
+                        {move.name}
+                    </p>
+                ))}
+            </div>
+
+            <span className="text-center font-thin md:font-semibold">
+                Version groups:
+            </span>
+
+            <div className="">
+                {props.version_groups.map((group) => (
+                    <p key={group.id} className="text-center font-thin">
+                        {group.name}
+                    </p>
+                ))}
+            </div>
         </div>
     )
 }
