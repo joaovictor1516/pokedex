@@ -89,7 +89,7 @@ export default function Principal(props: Readonly<Pokemon>){
             </Dialog.Trigger>
 
             <Dialog.Portal>
-                <Dialog.Overlay className='inset-0 fixed bg-black/50'/>
+                <Dialog.Overlay className="inset-0 fixed bg-black/50"/>
 
                 <Dialog.Content 
                 className="fixed inset-0 xl:top-1/2 md:left-1/2 md:-translate-x-1/2 xl:-translate-y-1/2 flex flex-col w-full xl:max-w-[640px] xl:h-[85vh] bg-red-400 border-solid xl:rounded-md text-black md:overflow-y-scroll  xl:overflow-auto">
