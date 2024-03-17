@@ -1,4 +1,5 @@
 export interface PokemonList{
+    id?: number;
     name: string;
     url: string;
 };
@@ -48,8 +49,8 @@ export interface PokemonEvoluction{
 export interface PokemonGeneration{
     id: number;
     name: string;
-    types: PokemonList[];
-    moves: PokemonList;
-    version_groups: PokemonList;
+    types?: PokemonList[];
+    moves: PokemonList[];
+    version_groups: PokemonList[];
     pokemon_species: PokemonList[];
 };
