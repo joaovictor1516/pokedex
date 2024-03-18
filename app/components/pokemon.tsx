@@ -94,7 +94,7 @@ export default function Principal(props: Readonly<Pokemon>){
                 <Dialog.Content 
                 className="fixed inset-0 xl:top-1/2 md:left-1/2 md:-translate-x-1/2 xl:-translate-y-1/2 flex flex-col w-full xl:max-w-[640px] xl:h-[85vh] bg-red-400 border-solid xl:rounded-md text-black md:overflow-y-scroll  xl:overflow-auto">
 
-                    <Dialog.Close className="absolute top-2 right-3 md:top-6 md:right-6 xl:top-5 xl:right-5">
+                    <Dialog.Close className="absolute top-1 right-8 md:top-6 md:right-6 xl:top-5 xl:right-5">
                         <X/>
                     </Dialog.Close>
 
