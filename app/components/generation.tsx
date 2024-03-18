@@ -12,25 +12,17 @@ export default function Generations(props: Readonly<PokemonGeneration>){
                 <h1 className="text-center font-semibold md:font-bold">
                     {props.name}
                 </h1>
-                <span className="text-center font-thin md:font-semibold">
-                    Types:
+
+                <span className="">
+                    Main region
                 </span>
-                {props.types !== undefined && props.types.length > 0 ? (
-                    <div className="text-center font-thin">
-                        {props.types.map((type) => (
-                            <p className="text-center font-thin"
-                                key={type.id}>
-                                    {type.name[0].toUpperCase().concat(type.name.slice(1))}
-                            </p>
-                        ))}
-                </div>
-                ) : (
-                <div>
+
+                <div className="flex flex-col flex-wrap h-80 gap-x-2 gap-y-1">
                     <p className="text-center font-thin">
-                        Without new types
+                        {props.main_region.name}
                     </p>
                 </div>
-                )}
+                
             </Dialog.Trigger>
 
 
@@ -44,6 +36,26 @@ export default function Generations(props: Readonly<PokemonGeneration>){
                     </Dialog.Close>
 
                     <div className="flex flex-col text-center justify-center content-center">
+                        <span className="text-center font-thin md:font-semibold">
+                        Types:
+                        </span>
+                        {props.types !== undefined && props.types.length > 0 ? (
+                            <div className="text-center font-thin">
+                                {props.types.map((type) => (
+                                    <p className="text-center font-thin"
+                                        key={type.id}>
+                                            {type.name[0].toUpperCase().concat(type.name.slice(1))}
+                                    </p>
+                                ))}
+                        </div>
+                        ) : (
+                        <div>
+                            <p className="text-center font-thin">
+                                Without new types
+                            </p>
+                        </div>
+                        )}
+
                         <span className="text-center font-thin md:font-semibold">
                             Moves:
                         </span>
