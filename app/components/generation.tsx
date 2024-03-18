@@ -65,6 +65,17 @@ export default function Generations(props: Readonly<PokemonGeneration>){
                                 </p>
                             ))}
                         </div>
+
+                        <span className="">
+                            Pokemons:
+                        </span>
+                        <div className="flex flex-col flex-wrap h-80 gap-x-2 gap-y-1">
+                            {props.pokemon_species.map((pokemon) => (
+                                <p key={pokemon.id} className="text-center font-thin">
+                                    {pokemon.name}
+                                </p>
+                            ))}
+                        </div>
                     </div>
                 </Dialog.Content>
             </Dialog.Portal>
