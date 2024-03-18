@@ -45,14 +45,16 @@ export default function TakeGenerations(){
                 const response = await axios.get(`https://pokeapi.co/api/v2/generation/${generation.name}`);
                 const id = await response.data.id;
                 const name = await response.data.name;
-                const moves = await response.data.moves;
+                const mainRegion = await response.data.main_region;
                 const types = await response.data.types;
+                const moves = await response.data.moves;
                 const versionGroups = await response.data.version_groups;
                 const pokemonSpecies = await response.data.pokemon_species;
                 
                 pokemonGenerations.push({
                     id: id,
                     name: name[0].toUpperCase().concat(name.slice(1)),
+                    main_region: mainRegion,
                     types: types,
                     moves: moves,
                     version_groups: versionGroups,
@@ -87,6 +89,7 @@ export default function TakeGenerations(){
                         <Generations key={generation.id}
                                     id={generation.id}
                                     name={generation.name}
+                                    main_region={generation.main_region}
                                     types={generation.types}
                                     moves={generation.moves}
                                     version_groups={generation.version_groups}

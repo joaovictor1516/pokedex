@@ -49,6 +49,7 @@ export interface PokemonEvoluction{
 export interface PokemonGeneration{
     id: number;
     name: string;
+    main_region: PokemonList;
     types?: PokemonList[];
     moves: PokemonList[];
     version_groups: PokemonList[];
