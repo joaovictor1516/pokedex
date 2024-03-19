@@ -8,8 +8,8 @@ import { Pokemon, PokemonEvoluction, PokemonList } from './interfaces/interfaces
 import axios from 'axios';
 
 export default function Home(){
-  const [datas, setDatas] = useState<PokemonList[]>([]);
   const [textSearch, setTextSearch] = useState("");
+  const [datas, setDatas] = useState<PokemonList[]>([]);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   let listPokemonForms: PokemonList[] = [];
 
@@ -77,12 +77,12 @@ const takePokemonEvoluctions = async(id: number) => {
 const takeDataValues = async(list: PokemonList[]) => {
   const takeElements: Pokemon[] = []; 
   try{
+    if(list !== undefined && list.length > 0){
       for(let pokemonData of list){
         const localData = localStorage.getItem(`pokemon_${pokemonData.name}`);
         let data;
         if(localData){
-          setDatas(JSON.parse(localData));
-          return;
+          data = JSON.parse(localData);
         } else{
           const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonData.name}`);
           data = response.data;
@@ -105,7 +105,8 @@ const takeDataValues = async(list: PokemonList[]) => {
                             listForms: listPokemonForms
                           });
         }
-      } catch(error){
+      }
+    } catch(error){
       console.error(error);
       }
     setPokemons(() => [...takeElements]);

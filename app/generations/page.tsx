@@ -30,7 +30,7 @@ export default function TakeGenerations(){
 
     const takeGenerationsData = async() => {
         try{
-            const localData = await localStorage.getItem("generations");
+            const localData = localStorage.getItem("generations");
             if(localData){
                 setData(JSON.parse(localData));
                 return;
@@ -54,11 +54,10 @@ export default function TakeGenerations(){
 
                 if(localData){
                     data = JSON.parse(localData);
-                    return;
                 } else{
                     const response = await axios.get(`https://pokeapi.co/api/v2/generation/${generation.name}`);
                     data = response.data;
-                    localStorage.setItem(`generation_${generation.name}`, JSON.parse(data));
+                    localStorage.setItem(`generation_${generation.name}`, JSON.stringify(data));
                 }
                 const id = await data.id;
                 const name = await data.name;
