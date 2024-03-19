@@ -25,7 +25,7 @@ export default function Generations(props: Readonly<PokemonGeneration>){
             <Dialog.Portal>
                 <Dialog.Overlay className="inset-0 fixed bg-black/50"/>
 
-                <Dialog.Content className="fixed inset-0 xl:top-1/2 md:left-1/2 md:-translate-x-1/2 xl:-translate-y-1/2 flex flex-col w-full xl:max-w-[640px] xl:h-[85vh] bg-red-400 border-solid xl:rounded-md text-black overflow-scroll  xl:overflow-auto gap-y-10">
+                <Dialog.Content className="fixed inset-0 md:top-1/2 md:left-1/2 md:-translate-x-1/2 xl:-translate-y-1/2 flex flex-col w-full xl:max-w-[800px] xl:h-[85vh] bg-red-400 border-solid xl:rounded-md text-black overflow-x-hidden overflow-y-scroll  xl:overflow-auto gap-y-10">
 
                     <Dialog.Close className="absolute top-1 right-8 md:top-6 md:right-6 xl:top-5 xl:right-5">
                         <X/>
