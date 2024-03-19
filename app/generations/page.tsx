@@ -30,9 +30,16 @@ export default function TakeGenerations(){
 
     const takeGenerationsData = async() => {
         try{
-            const response = await axios.get("https://pokeapi.co/api/v2/generation");
-            const results = await response.data.results;
-            setData(results);
+            const localData = localStorage.getItem("generations");
+            if(localData){
+                setData(JSON.parse(localData));
+                return;
+            } else{
+                const response = await axios.get("https://pokeapi.co/api/v2/generation");
+                const results = await response.data.results;
+                localStorage.setItem("generations", JSON.stringify(results));
+                setData(results);
+            }
         } catch(error){
             console.error(error);
         }
@@ -42,14 +49,23 @@ export default function TakeGenerations(){
         const pokemonGenerations: PokemonGeneration[] = [];
         try{
             for(const generation of data) {
-                const response = await axios.get(`https://pokeapi.co/api/v2/generation/${generation.name}`);
-                const id = await response.data.id;
-                const name = await response.data.name;
-                const mainRegion = await response.data.main_region;
-                const types = await response.data.types;
-                const moves = await response.data.moves;
-                const versionGroups = await response.data.version_groups;
-                const pokemonSpecies = await response.data.pokemon_species;
+                const localData = localStorage.getItem(`generation_${generation.name}`);
+                let data;
+
+                if(localData){
+                    data = JSON.parse(localData);
+                } else{
+                    const response = await axios.get(`https://pokeapi.co/api/v2/generation/${generation.name}`);
+                    data = response.data;
+                    localStorage.setItem(`generation_${generation.name}`, JSON.stringify(data));
+                }
+                const id = await data.id;
+                const name = await data.name;
+                const mainRegion = await data.main_region;
+                const types = await data.types;
+                const moves = await data.moves;
+                const versionGroups = await data.version_groups;
+                const pokemonSpecies = await data.pokemon_species;
                 
                 pokemonGenerations.push({
                     id: id,

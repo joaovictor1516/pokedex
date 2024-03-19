@@ -8,8 +8,8 @@ import { Pokemon, PokemonEvoluction, PokemonList } from './interfaces/interfaces
 import axios from 'axios';
 
 export default function Home(){
-  const [datas, setDatas] = useState<PokemonList[]>([]);
   const [textSearch, setTextSearch] = useState("");
+  const [datas, setDatas] = useState<PokemonList[]>([]);
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   let listPokemonForms: PokemonList[] = [];
 
@@ -37,9 +37,17 @@ export default function Home(){
 
   const takeData = async () => {
   try{
-    const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
-    const results = await response.data.results;
-    setDatas(results);
+    const localData = localStorage.getItem("pokemons");
+
+    if(localData){
+      setDatas(JSON.parse(localData));
+      return;
+    } else{
+      const response = await axios.get("https://pokeapi.co/api/v2/pokemon");
+      const results = await response.data.results;
+      localStorage.setItem("pokemons", JSON.stringify(results));
+      setDatas(results);
+    }
   } catch(error){
     console.error(`Error: ${error}`);
   }
@@ -69,13 +77,22 @@ const takePokemonEvoluctions = async(id: number) => {
 const takeDataValues = async(list: PokemonList[]) => {
   const takeElements: Pokemon[] = []; 
   try{
-      for(let i of list){
-        const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i.name}`);
-        const name = i.name;
-        const abilities = await response.data.abilities;
-        const types = await response.data.types;
-        const stats = await response.data.stats;
-        const id = await response.data.id;
+    if(list !== undefined && list.length > 0){
+      for(let pokemonData of list){
+        const localData = localStorage.getItem(`pokemon_${pokemonData.name}`);
+        let data;
+        if(localData){
+          data = JSON.parse(localData);
+        } else{
+          const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonData.name}`);
+          data = response.data;
+          localStorage.setItem(`pokemon_${pokemonData.name}`, JSON.stringify(data));
+        }
+        const name = pokemonData.name;
+        const abilities = await data.abilities;
+        const types = await data.types;
+        const stats = await data.stats;
+        const id = await data.id;
         const evoluctions = await takePokemonEvoluctions(id);
 
         takeElements.push({ 
@@ -88,7 +105,8 @@ const takeDataValues = async(list: PokemonList[]) => {
                             listForms: listPokemonForms
                           });
         }
-      } catch(error){
+      }
+    } catch(error){
       console.error(error);
       }
     setPokemons(() => [...takeElements]);
