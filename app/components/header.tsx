@@ -35,7 +35,7 @@ export default function Header(props: Readonly<SearchBar>){
                  className="w-6"/>
 
             <nav className="flex flex-1 flex-row">
-                <ul className="flex flex-1 flex-row justify-end gap-1">
+                <ul className="flex flex-1 flex-row justify-end gap-2">
                     <li className="font-extralight hover:underline">
                         <Link href="/">
                             Home
@@ -57,7 +57,7 @@ export default function Header(props: Readonly<SearchBar>){
             </nav>
 
             <form onSubmit={handleSubmit}
-                className="flex flex-row flex-1 gap-1 justify-end">
+                className="flex flex-row flex-1 gap-0.5 justify-end">
 
                 <input type="text"
                 className="bg-red-50 relative -right-6 rounded active:border-none p-1 h-6 w-32 md:w-48 xl:w-64"
