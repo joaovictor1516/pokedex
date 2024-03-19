@@ -41,14 +41,13 @@ export default function Principal(props: Readonly<Pokemon>){
                 async(pokemonFormName: PokemonList) => {
                     const request = await axios.get(pokemonFormName.url);
                     const data = await request.data;
-                    if(takeListForms.length < 3 && props.listForms.length === 3){
+                    if((takeListForms.length < 3 && props.listForms.length === 3) || (takeListForms.length < 2 && props.listForms.length === 2)){
                         takeListForms.push(data);
-                    } else if(takeListForms.length < 2 && props.listForms.length === 2){
-                        takeListForms.push(data);
-                    }
+                    }                    
                 }
             )
         );
+        counter = 2;
         setEvoluctionsPokemon(takeListForms);
     };
 
@@ -56,14 +55,10 @@ export default function Principal(props: Readonly<Pokemon>){
         changeColor();
     },[props.types]);
 
-    if(props.evoluctions){
-        while(counter === 1){
-            useEffect(() => {
-                takePokemonEvoluctions();
-            }, [props.evoluctions]);
-
-            counter = 2;
-        };
+    if(props.evoluctions && counter === 1){
+        useEffect(() => {
+            takePokemonEvoluctions();
+        }, [props.evoluctions]);
     };
 
     return(
@@ -79,8 +74,8 @@ export default function Principal(props: Readonly<Pokemon>){
                 
                 <div 
                 className="flex flex-row flex-wrap gap-x-1 mt-4 justify-center content-center text-center">
-                    {props.types.map((typeItem, id) => (
-                        <span key={id}
+                    {props.types.map((typeItem) => (
+                        <span key={typeItem.type.id}
                             className={`font-thin md:font-normal ${color[typeItem.type.name]} p-0.5 md:p-1 rounded`}>
                             {typeItem.type.name[0].toUpperCase().concat(typeItem.type.name.slice(1))}
                         </span>
@@ -111,9 +106,9 @@ export default function Principal(props: Readonly<Pokemon>){
                         </h3>
 
                         <div className="">
-                            {props.stats.map((statsItem, id) => (
+                            {props.stats.map((statsItem) => (
                                 <div 
-                                key={id} 
+                                key={statsItem.stat.id} 
                                 className="flex flex-row flex-1 justify-center content-center gap-x-0.5">
                                     <span className="">
                                         {statsItem.stat.name[0].toUpperCase().concat(statsItem.stat.name.slice(1))}:
@@ -132,9 +127,9 @@ export default function Principal(props: Readonly<Pokemon>){
 
                         <div 
                         className="flex flex-row flex-1 flex-wrap gap-x-1 justify-center content-center text-center">
-                            {props.abilities.map((abilityItem, id) => (
+                            {props.abilities.map((abilityItem) => (
                         
-                                <span key={id} className="font-normal">
+                                <span key={abilityItem.ability.id} className="font-normal">
                                     {abilityItem.ability.name[0].toUpperCase().concat(abilityItem.ability.name.slice(1))}
                                 </span>
                                 )
