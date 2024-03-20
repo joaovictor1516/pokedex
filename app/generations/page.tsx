@@ -7,21 +7,22 @@ import Footer from "../components/footer";
 import axios from "axios";
 
 export default function TakeGenerations(){
-    const [generations, setGenerations] = useState<PokemonGeneration[]>([]);
-    const [data, setData] = useState<PokemonList[]>([]);
     const [textSearch, setTextSearch] = useState("");
+    const [data, setData] = useState<PokemonList[]>([]);
+    const [generations, setGenerations] = useState<PokemonGeneration[]>([]);
 
     const handleTextSearch = (text: string) => {
         setTextSearch(text.toLowerCase());
     };
 
     const searchFunction = async() => {
-        if(textSearch !== undefined || textSearch !== ""){
+        if(textSearch !== undefined && textSearch.trim() !== ""){
             const search: PokemonList[] = [];
             search.push({
                 name: textSearch.toLowerCase(),
                 url: ""
             });
+            handleTextSearch(textSearch);
             await takeGenerations(search);
         } else{
             takeGenerations(data);
