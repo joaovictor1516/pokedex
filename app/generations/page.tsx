@@ -23,7 +23,7 @@ export default function TakeGenerations(){
                 url: ""
             });
             handleTextSearch(textSearch);
-            await takeGenerations(search);
+            takeGenerations(search);
         } else{
             takeGenerations(data);
         }
@@ -44,7 +44,7 @@ export default function TakeGenerations(){
         } catch(error){
             console.error(error);
         }
-    }
+    };
 
     const takeGenerations = async(data: PokemonList[]) => {
         const pokemonGenerations: PokemonGeneration[] = [];
