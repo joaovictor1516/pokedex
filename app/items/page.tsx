@@ -15,7 +15,7 @@ export default function ShowItems(props: Readonly<PokemonItems>){
         setTextSearch(text.toLowerCase());
     };
 
-    const searchItem =async() => {
+    const searchItem = async() => {
         if(textSearch !== undefined && textSearch.trim() !== ""){
             try{
                 const itemSearched:PokemonList[] =[];
@@ -34,16 +34,37 @@ export default function ShowItems(props: Readonly<PokemonItems>){
     };
 
     const takeDataItems = async() => {
-        const response = await axios.get("https://pokeapi.co/api/v2/item");
-        const results = await response.data.results;
-        setData(results);
+        try{
+            const localData = localStorage.getItem("items");
+
+            if(localData){
+                setData(JSON.parse(localData));
+                return;
+            } else{        
+                const response = await axios.get("https://pokeapi.co/api/v2/item");
+                const results = await response.data.results;
+                localStorage.setItem("items", JSON.stringify(results));
+                setData(results);
+            }
+        } catch(error){
+            console.error(error);
+        }
     };
 
     const takeItems = async(data: PokemonList[]) => {
         const item: PokemonItems[] = [];
         for (const i of data) {
-            const response = await axios.get(`https://pokeapi.co/api/v2/item/${i.name}`);
-            const data = await response.data;
+            const localData = localStorage.getItem(`item_${i.name}`);
+            let data;
+            
+            if(localData){
+                data = JSON.parse(localData);
+            } else{
+                const response = await axios.get(`https://pokeapi.co/api/v2/item/${i.name}`);
+                data = await response.data;
+                localStorage.setItem(`item_${i.name}`, JSON.stringify(data));
+            }
+
             item.push({
                 id: data.id,
                 name: i.name,
