@@ -6,7 +6,7 @@ import Footer from "../components/footer";
 import Items from "../components/items";
 import axios from "axios";
 
-export default function ShowItems(props: Readonly<PokemonItems>){
+export default function ShowItems(){
     const [textSearch, setTextSearch] = useState("");
     const [items, setItems] = useState<PokemonItems[]>([]);
     const [data, setData] = useState<PokemonList[]>([]);

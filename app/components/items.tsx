@@ -1,13 +1,10 @@
 "use client";
 import { PokemonItems } from "../interfaces/interfacesAPI";
-import Image from "next/image";
 
 export default function Items(props: Readonly<PokemonItems>){
     return(
         <div className="flex items-center flex-col border-red-400 border-2 hover:border-amber-400 p-2">
-            <Image src={props.sprites.default} 
-                width={10}
-                height={10}  
+            <img src={props.sprites.default}
                 alt={`Image of the item ${props.name}`} 
                 className=""/>
 
