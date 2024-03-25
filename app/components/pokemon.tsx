@@ -55,19 +55,23 @@ export default function Principal(props: Readonly<Pokemon>){
     useEffect(() => {
         changeColor();
     },[props.types]);
-
-    if(props.evoluctions && counter === 1){
-        useEffect(() => {
+  
+    useEffect(() => {
+        if(props.evoluctions && counter === 1){
             takePokemonEvoluctions();
-        }, [props.evoluctions]);
-    };
+        };
+    }, [props.evoluctions, counter]);
 
     return(
         <Dialog.Root>
             <Dialog.Trigger 
             className="flex flex-1 flex-col gap-y-0.5 border-solid border-red-400 border-2 justify-center content-center items-center text-center rounded-md h-44 w-28 md:w-52 md:h-56 hover:border-amber-400">
 
-                <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${props.id}.gif`} alt={`Gif do ${props.name}`} className="w-14 h-16 mt-5" />
+                <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${props.id}.gif`} 
+                    width={56} 
+                    height={64} 
+                    alt={`Gif do ${props.name}`} 
+                    className="w-14 h-16 mt-5" />
             
                 <span className="font-normal md:font-bold">
                     {props.name[0].toUpperCase().concat(props.name.slice(1))}
@@ -96,7 +100,9 @@ export default function Principal(props: Readonly<Pokemon>){
 
                     <div className="flex flex-col text-center justify-center content-center">
 
-                        <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} alt={`Image of ${props.name}`} className="h-52 w-52 self-center"/>
+                        <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${props.id}.png`} 
+                            alt={`Image of ${props.name}`} 
+                            className="h-52 w-52 self-center"/>
 
                         <h1 className="font-bold">
                             {props.name[0].toUpperCase().concat(props.name.slice(1))}
@@ -145,6 +151,8 @@ export default function Principal(props: Readonly<Pokemon>){
                             {evoluctionsPokemon.map((pokemon) => (
                                 <div key={pokemon.id} className="">
                                     <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`} 
+                                        width={15}
+                                        height={15}
                                         alt={`Imagem do pokemon ${pokemon.name}`} 
                                         className=""/>
                                     
