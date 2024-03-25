@@ -1,6 +1,7 @@
 "use client"
 import 'tailwindcss/tailwind.css';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { X } from 'lucide-react';
 
@@ -30,7 +31,7 @@ export default function Header(props: Readonly<SearchBar>){
     return(
         <div className="bg-red-400 flex flex-1 flex-row p-[5px] relative top-0 left-0 right-0">
 
-            <img src="/assets/pokeBola.png" 
+            <Image src="/assets/pokeBola.png" 
                  alt="Uma bola com a parte superior vermelha e a parte inferior branca com um traço preto na horizontal no meio da bola" 
                  className="w-6"/>
 
