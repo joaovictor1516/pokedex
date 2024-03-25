@@ -32,6 +32,8 @@ export default function Header(props: Readonly<SearchBar>){
         <div className="bg-red-400 flex flex-1 flex-row p-[5px] relative top-0 left-0 right-0">
 
             <Image src="/assets/pokeBola.png" 
+                width={24}
+                height={24}
                  alt="Uma bola com a parte superior vermelha e a parte inferior branca com um traço preto na horizontal no meio da bola" 
                  className="w-6"/>
 
