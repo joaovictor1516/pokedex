@@ -64,7 +64,7 @@ const takePokemonEvoluctions = async(id: number) => {
   [evoluctionsElements.evolves_to].map((pokemonFirstEvoluctionSpecie: PokemonEvoluction[]) => {
     listPokemonForms.push(pokemonFirstEvoluctionSpecie[0].species);
     
-    pokemonFirstEvoluctionSpecie.map((pokemonSecondEvoluctionSpecie: PokemonEvoluction[]) => {
+    pokemonFirstEvoluctionSpecie.map((pokemonSecondEvoluctionSpecie: PokemonEvoluction) => {
       if(pokemonSecondEvoluctionSpecie.evolves_to[0] !== undefined){
         listPokemonForms.push(pokemonSecondEvoluctionSpecie.evolves_to[0].species);
       }

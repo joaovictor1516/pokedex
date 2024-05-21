@@ -42,7 +42,7 @@ export interface PokemonSprite{
 };
 
 export interface PokemonEvoluction{
-    evolves_to: PokemonEvoluction;
+    evolves_to: PokemonEvoluction[];
     species: PokemonList;
 };
 
